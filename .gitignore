@@ -5,3 +5,11 @@
 venv
 /venv/
 .venv
+
+#media files
+/media/
+.media
+/media
+
+#dbsqlite3
+db.sqlite3
