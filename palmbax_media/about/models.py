@@ -2,7 +2,9 @@ from django.db import models
 # Tools
 from django.utils.translation import gettext_lazy as _
 from django import forms
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from wagtail.admin.panels import (
+    FieldPanel, MultiFieldPanel, InlinePanel
+)
 
 # Wagtail
 from wagtail.models import Page, Orderable
@@ -34,6 +36,8 @@ class AboutPage(Page):
     content_panels = Page.content_panels + [
         MultiFieldPanel([
             FieldPanel('details'),
+            InlinePanel('why_choose_us', label='Why Choose Us?'),
+            InlinePanel('about_us_img', label='Featured Image(s)'),
         ],heading='About Us Information')
     ]
 
@@ -51,6 +55,42 @@ class WhyChooseUs(Orderable):
         on_delete=models.CASCADE,
         related_name='why_choose_us'
     )
+
+    text = models.TextField(_('Why Choose Us?'),
+                              null=True,
+                              blank=False,
+                              help_text='Please enter your reasons.')
+
+    panels = [
+        FieldPanel('text'),
+    ]
+
+    class Meta:
+        verbose_name = 'WHY CHOOSE US?'
+        verbose_name_plural = 'WHY CHOOSE US?'
+
+class AboutUsImage(Orderable):
+    page = ParentalKey(
+        'AboutPage',
+        on_delete=models.CASCADE,
+        related_name='about_us_img',
+    )
+
+    img = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    panels = [
+        FieldPanel('img')
+    ]
+
+    class Meta:
+        verbose_name = 'Featured Image'
+        verbose_name_plural = 'Featured Images'
 
 
 
