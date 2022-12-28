@@ -1,7 +1,15 @@
 .idea
 /idea/
 
-#Virtual Environment
+# Virtual Environment
 venv
 /venv/
 .venv
+
+# media
+media
+.media
+/media/
+
+# database
+db.sqlite3
