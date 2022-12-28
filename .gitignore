@@ -1,0 +1,7 @@
+.idea
+/idea/
+
+#Virtual Environment
+venv
+/venv/
+.venv
