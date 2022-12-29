@@ -1,19 +1,32 @@
 {% extends "base.html" %}
 {% load static wagtailcore_tags wagtailimages_tags %}
 {% block content %}
-    <table>
-        <tr>
-            {% for image in self.about_us_img.all %}
-                {% image image.img max-411x479 as img %}
-                 <img src="{{img.url}}" alt="{{img.alt}}">
-            {% endfor %}
-        </tr>
-        <tr>
-            {{ self.details | richtext }}
-            <br>{% for item in self.why_choose_us.all %}
-                <ul><li>{{item.text}}</li></ul>
-            {% endfor %}
-        </tr>
-    </table>
+    <!--Analytics-->
+    <br>
+    <div class="container">
+        {% for item in analytics %}
+        <div class="col">
+            <div class="row">{{item.value}}</div>
+            <div class="row">{{item.field}}</div>
+        </div>
+        {% endfor %}
+    </div>
+    <!--About Us!-->
+    <div>
+        <table>
+    <tr>
+        {% for image in self.about_us_img.all %}
+            {% image image.img max-411x479 as img %}
+             <img src="{{img.url}}" alt="{{img.alt}}">
+        {% endfor %}
+    </tr>
+    <tr>
+        {{ self.details | richtext }}
+        <br>{% for item in self.why_choose_us.all %}
+            <ul><li>{{item.text}}</li></ul>
+        {% endfor %}
+    </tr>
+</table>
+    </div>
 
 {% endblock content %}

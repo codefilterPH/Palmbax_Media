@@ -45,6 +45,7 @@ class AboutPage(Page):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
+        context['analytics'] = Analytics.objects.all()
         return context
 
     class Meta:
@@ -80,7 +81,7 @@ class AboutUsImage(Orderable):
         related_name='about_us_img',
     )
 
-    img = models.ForeignKey(
+    image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
         blank=True,
@@ -89,7 +90,7 @@ class AboutUsImage(Orderable):
     )
 
     panels = [
-        FieldPanel('img')
+        FieldPanel('image')
     ]
 
     class Meta:
@@ -99,11 +100,11 @@ class AboutUsImage(Orderable):
 
 @register_snippet
 class Analytics(models.Model):
-    percentage = models.PositiveSmallIntegerField(_('Analytic Value'),
-                                                  null=True,
-                                                  blank=False,
-                                                  help_text='Enter the whole number value 1-100+'
-                                                  )
+    value = models.PositiveSmallIntegerField(_('Analytic Value'),
+                                             null=True,
+                                             blank=False,
+                                             help_text='Enter the whole number value 1-100+'
+                                             )
     field = models.CharField(_('Field Name'),
                              max_length=40,
                              null=True,
@@ -116,3 +117,28 @@ class Analytics(models.Model):
     class Meta:
         verbose_name = _('Analytic')
         verbose_name_plural = _('Analytics')
+
+
+@register_snippet
+class Clients(models.Model):
+    name = models.CharField(_('Client\'s Name'),
+                            max_length=40,
+                            null=True,
+                            blank=False,
+                            help_text='Enter the client\'s business name.'
+                            )
+
+    image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = _('Client')
+        verbose_name_plural = _('Clients')
