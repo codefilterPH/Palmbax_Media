@@ -16,7 +16,7 @@
         <table>
     <tr>
         {% for image in self.about_us_img.all %}
-            {% image image.img max-411x479 as img %}
+            {% image image.image max-411x479 as img %}
              <img src="{{img.url}}" alt="{{img.alt}}">
         {% endfor %}
     </tr>

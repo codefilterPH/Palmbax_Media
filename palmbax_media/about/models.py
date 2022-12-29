@@ -18,13 +18,19 @@ from wagtail.api import APIField
 
 
 class AboutPage(Page):
+    max_count = 1
     parent_page_types = [
         'home.HomePage',
     ]
+    subpage_types = [
+        'about.Analytics',
+        'about.Clients',
+    ]
+
     template = 'about/about_page.html'
     details = RichTextField(_('Company Details'),
                             max_length=1000,
-                            blank=False,
+                            blank=True,
                             features=['italic', 'bold'],
                             help_text='Enter your company narrative details.')
 
@@ -34,6 +40,10 @@ class AboutPage(Page):
 
     api_fields = [
         APIField('details'),
+        APIField('why_choose_us'),
+        APIField('about_us_img'),
+        APIField('analytics'),
+        APIField('clients'),
     ]
     content_panels = Page.content_panels + [
         MultiFieldPanel([
@@ -43,14 +53,14 @@ class AboutPage(Page):
         ], heading='About Us Information')
     ]
 
+    class Meta:
+        verbose_name = 'ABOUT US'
+        verbose_name_plural = 'ABOUT US'
+
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         context['analytics'] = Analytics.objects.all()
         return context
-
-    class Meta:
-        verbose_name = 'ABOUT US'
-        verbose_name_plural = 'ABOUT US'
 
 
 class WhyChooseUs(Orderable):
@@ -98,8 +108,13 @@ class AboutUsImage(Orderable):
         verbose_name_plural = 'Featured Images'
 
 
-@register_snippet
-class Analytics(models.Model):
+class Analytics(Page):
+    """Subpage from about page"""
+    template = 'analytics_page.html'
+    parent_page_types = [
+        'about.AboutPage',
+    ]
+
     value = models.PositiveSmallIntegerField(_('Analytic Value'),
                                              null=True,
                                              blank=False,
@@ -111,16 +126,35 @@ class Analytics(models.Model):
                              blank=False,
                              help_text='Enter the field name. ex: \"Number of clients\".')
 
-    def __str__(self):
-        return self.field
+    search_fields = Page.search_fields + [
+        index.SearchField('value'),
+        index.SearchField('field'),
+    ]
+
+    api_fields = [
+        APIField('value'),
+        APIField('field'),
+    ]
 
     class Meta:
         verbose_name = _('Analytic')
         verbose_name_plural = _('Analytics')
 
+    content_panels = Page.content_panels + [
+        MultiFieldPanel([
+            FieldPanel('value'),
+            FieldPanel('field'),
+        ], heading='Analytics')
+    ]
 
-@register_snippet
-class Clients(models.Model):
+
+class Clients(Page):
+    """Subpage from about page"""
+    template = 'about/clients_page.html'
+    parent_page_types = [
+        'about.AboutPage',
+    ]
+
     name = models.CharField(_('Client\'s Name'),
                             max_length=40,
                             null=True,
@@ -136,9 +170,23 @@ class Clients(models.Model):
         related_name='+'
     )
 
-    def __str__(self):
-        return self.name
+    search_fields = Page.search_fields + [
+        index.SearchField('name'),
+        index.SearchField('image'),
+    ]
+
+    api_fields = [
+        APIField('name'),
+        APIField('image'),
+    ]
 
     class Meta:
         verbose_name = _('Client')
         verbose_name_plural = _('Clients')
+
+    content_panels = Page.content_panels + [
+        MultiFieldPanel([
+            FieldPanel('name'),
+            FieldPanel('image'),
+        ], heading='Clients')
+    ]
