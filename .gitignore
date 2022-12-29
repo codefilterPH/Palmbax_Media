@@ -13,3 +13,8 @@ media
 
 # database
 db.sqlite3
+
+# migrations folder
+/migrations/
+.migrations
+/migrations
