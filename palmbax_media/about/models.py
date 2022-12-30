@@ -25,6 +25,7 @@ class AboutPage(Page):
     subpage_types = [
         'about.Analytics',
         'about.Clients',
+        'about.Testimonials',
     ]
 
     template = 'about/about_page.html'
@@ -156,7 +157,7 @@ class Clients(Page):
     ]
 
     name = models.CharField(_('Client\'s Name'),
-                            max_length=40,
+                            max_length=50,
                             null=True,
                             blank=False,
                             help_text='Enter the client\'s business name.'
@@ -189,4 +190,56 @@ class Clients(Page):
             FieldPanel('name'),
             FieldPanel('image'),
         ], heading='Clients')
+    ]
+
+
+class Testimonials(Page):
+    """People will send their testimony from the front end"""
+    template = 'about/testimonials_page.html'
+    parent_page_types = [
+        'about.AboutPage',
+    ]
+
+    name = models.CharField(_('Your name'),
+                            max_length=50,
+                            null=True,
+                            blank=False,
+                            help_text='Enter the client\'s business name.'
+                            )
+
+    profile_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    testimony = RichTextField(_('Testimony'),
+                              max_length=2000,
+                              null=True,
+                              blank=False,
+                              help_text='Input your narrative speech.'
+                              )
+
+    search_fields = Page.search_fields + [
+        index.SearchField('name'),
+    ]
+
+    api_fields = [
+        APIField('name'),
+        APIField('profile_image'),
+        APIField('testimony'),
+    ]
+
+    class Meta:
+        verbose_name = _('Testimonial')
+        verbose_name_plural = _('Testimonials')
+
+    content_panels = Page.content_panels + [
+        MultiFieldPanel([
+            FieldPanel('name'),
+            FieldPanel('profile_image'),
+            FieldPanel('testimony'),
+        ], heading='Testimonial(s)')
     ]
