@@ -48,6 +48,7 @@ INSTALLED_APPS = [
 
     # apps installed
     'about',
+    'banner',
 
     #thirdparty
     "wagtail.api.v2",
