@@ -11,6 +11,9 @@ from wagtail.search import index
 from modelcluster.fields import ParentalKey
 # Wagtail Api
 from wagtail.api import APIField
+
+# my imports
+from .validators import mp4_validate_file_extension
 # Create your models here.
 
 
@@ -46,7 +49,7 @@ class Banners(Orderable):
         ('stream youtube link', 'stream youtube link'),
     )
     page = ParentalKey(
-        'HomePage',
+        'BannerPage',
         on_delete=models.CASCADE,
         related_name='banners'
     )
