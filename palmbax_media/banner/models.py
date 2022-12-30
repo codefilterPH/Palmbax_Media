@@ -8,6 +8,7 @@ from wagtail.admin.panels import (
 )
 from wagtail.models import Page, Orderable
 from wagtail.search import index
+from modelcluster.fields import ParentalKey
 # Wagtail Api
 from wagtail.api import APIField
 # Create your models here.
@@ -22,6 +23,11 @@ class BannerPage(Page):
     api_fields = [
         APIField('banners'),
     ]
+
+    search_fields = Page.search_fields + [
+        index.SearchField('banners'),
+    ]
+
     content_panels = Page.content_panels + [
         MultiFieldPanel([
             InlinePanel('banners', label='banner orderables'),
