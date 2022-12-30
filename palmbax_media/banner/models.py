@@ -95,6 +95,6 @@ class Banners(Orderable):
     ]
 
     class Meta:
-        verbose_name = 'Home Banner'
-        verbose_name_plural = 'Home Banners'
+        verbose_name = 'HOME BANNER'
+        verbose_name_plural = 'HOME BANNERS'
 
