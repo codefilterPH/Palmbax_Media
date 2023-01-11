@@ -49,8 +49,10 @@ INSTALLED_APPS = [
     # apps installed
     'about',
     'banner',
+    'menu',
+    'contact',
 
-    #thirdparty
+    # thirdparty
     "wagtail.api.v2",
     "rest_framework",
 ]
@@ -154,7 +156,7 @@ MEDIA_URL = "/media/"
 
 # Wagtail settings
 
-WAGTAIL_SITE_NAME = "palmbax_media"
+WAGTAIL_SITE_NAME = "Palmbax Media"
 
 # Search
 # https://docs.wagtail.org/en/stable/topics/search/backends.html

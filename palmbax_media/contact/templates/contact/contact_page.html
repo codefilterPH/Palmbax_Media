@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags %}
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/map.css' %}">
+    <div class="map">
+           {{my_map|safe}}
+    </div>
+    {{address}}{{country}}
+{% endblock content %}

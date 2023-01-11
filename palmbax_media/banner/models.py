@@ -1,7 +1,5 @@
 from django.db import models
-# Tool
 from django.utils.translation import gettext_lazy as _
-
 # Wagtail
 from wagtail.admin.panels import (
     FieldPanel, MultiFieldPanel, InlinePanel
@@ -33,7 +31,7 @@ class BannerPage(Page):
 
     content_panels = Page.content_panels + [
         MultiFieldPanel([
-            InlinePanel('banners', label='banner orderables'),
+            InlinePanel('banners', label='BANNER ENTRY'),
         ], heading='The Banners')
     ]
 

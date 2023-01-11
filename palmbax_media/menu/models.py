@@ -13,7 +13,9 @@ from wagtail.admin.panels import (
 from wagtail.core.models import Orderable
 from wagtail.snippets.models import register_snippet
 
+
 # Create your models here.
+
 class MenuItem(Orderable):
     link_title = models.CharField(
         blank=True,
@@ -58,6 +60,7 @@ class MenuItem(Orderable):
             return self.link_title.upper()
         return 'Missing Title'
 
+
 @register_snippet
 class Menu(ClusterableModel):
     """The main menu clusterable model"""
@@ -76,3 +79,7 @@ class Menu(ClusterableModel):
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name = 'Menu'
+        verbose_name_plural = 'Menus'

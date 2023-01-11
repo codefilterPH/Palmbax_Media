@@ -29,6 +29,13 @@ class AboutPage(Page):
     ]
 
     template = 'about/about_page.html'
+
+    address = models.CharField(_('Company City Address'),
+                               max_length=300,
+                               null=True,
+                               blank=False,
+                               help_text='Please enter your company address.')
+
     details = RichTextField(_('Company Details'),
                             max_length=1000,
                             blank=True,
@@ -36,10 +43,12 @@ class AboutPage(Page):
                             help_text='Enter your company narrative details.')
 
     search_fields = Page.search_fields + [
+        index.SearchField('address'),
         index.SearchField('details'),
     ]
 
     api_fields = [
+        APIField('address'),
         APIField('details'),
         APIField('why_choose_us'),
         APIField('about_us_img'),
@@ -48,6 +57,7 @@ class AboutPage(Page):
     ]
     content_panels = Page.content_panels + [
         MultiFieldPanel([
+            FieldPanel('address'),
             FieldPanel('details'),
             InlinePanel('why_choose_us', label='Why Choose Us?'),
             InlinePanel('about_us_img', label='Featured Image(s)'),
