@@ -273,12 +273,12 @@ class Testimonials(Page):
         related_name='+'
     )
 
-    testimony = RichTextField(_('Testimony'),
-                              max_length=2000,
-                              null=True,
-                              blank=False,
-                              help_text='Input your narrative speech.'
-                              )
+    testimony = models.TextField(_('Testimony'),
+                                 max_length=2000,
+                                 null=True,
+                                 blank=False,
+                                 help_text='Input your narrative speech.'
+                                 )
 
     date = models.DateTimeField(auto_now_add=True, null=True)
 
