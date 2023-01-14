@@ -1,3 +1,11 @@
-from django.shortcuts import render
+from django.db import models
 
-# Create your views here.
+# Wagtail
+from wagtail.admin.panels import (
+    FieldPanel, FieldRowPanel, MultiFieldPanel, InlinePanel
+)
+from wagtail.models import Page
+
+
+class EventPage(Page):
+    max_count = 1

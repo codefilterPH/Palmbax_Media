@@ -5,7 +5,7 @@ from django import forms
 
 # Wagtail
 from wagtail.admin.panels import (
-    FieldPanel, MultiFieldPanel, InlinePanel
+    FieldPanel, MultiFieldPanel, InlinePanel, FieldRowPanel
 )
 from wagtail.models import Page, Orderable
 from wagtail.fields import RichTextField
@@ -23,6 +23,7 @@ class AboutPage(Page):
         'home.HomePage',
     ]
     subpage_types = [
+        'contact.ContactPage',
         'about.Analytics',
         'about.Clients',
         'about.Testimonials',
@@ -30,11 +31,38 @@ class AboutPage(Page):
 
     template = 'about/about_page.html'
 
-    address = models.CharField(_('Company City Address'),
-                               max_length=300,
-                               null=True,
-                               blank=False,
-                               help_text='Please enter your company address.')
+    date = models.DateTimeField(auto_now_add=True, null=True)
+
+    about_page_title = models.CharField(_('About Page Subtitle'),
+                                        max_length=50,
+                                        default='About Page',
+                                        null=True,
+                                        blank=False,
+                                        help_text='This is the About Page.')
+
+    page_description = models.TextField(_('Page Description'),
+                                        max_length=500,
+                                        null=True,
+                                        blank=False,
+                                        help_text='Enter any text to describe your banner.')
+
+    house = models.CharField(_('Building/House #'),
+                             max_length=300,
+                             null=True,
+                             blank=False,
+                             help_text='Please enter your building or house number.')
+
+    street = models.CharField(_('Street and Barangay'),
+                              max_length=300,
+                              null=True,
+                              blank=False,
+                              help_text='Please enter your company\'s street location and barangay.')
+
+    city = models.CharField(_('City'),
+                            max_length=100,
+                            null=True,
+                            blank=False,
+                            help_text='Please enter your company\'s city location.')
 
     details = RichTextField(_('Company Details'),
                             max_length=1000,
@@ -43,30 +71,42 @@ class AboutPage(Page):
                             help_text='Enter your company narrative details.')
 
     search_fields = Page.search_fields + [
-        index.SearchField('address'),
-        index.SearchField('details'),
+        index.SearchField('about_page_title'),
     ]
 
     api_fields = [
-        APIField('address'),
+        APIField('about_page_title'),
+        APIField('page_description'),
         APIField('details'),
+        APIField('house'),
+        APIField('street'),
+        APIField('city'),
         APIField('why_choose_us'),
         APIField('about_us_img'),
         APIField('analytics'),
         APIField('clients'),
+        APIField('date'),
     ]
     content_panels = Page.content_panels + [
         MultiFieldPanel([
-            FieldPanel('address'),
+            FieldPanel('about_page_title'),
+            FieldPanel('page_description'),
+        ], heading='Page Information'),
+        MultiFieldPanel([
+            FieldRowPanel([
+                FieldPanel('house', classname="col8"),
+                FieldPanel('street', classname="col10"),
+                FieldPanel('city', classname="col8"),
+            ]),
             FieldPanel('details'),
-            InlinePanel('why_choose_us', label='Why Choose Us?'),
+            InlinePanel('why_choose_us', label='Why choose us'),
             InlinePanel('about_us_img', label='Featured Image(s)'),
         ], heading='About Us Information')
     ]
 
     class Meta:
-        verbose_name = 'ABOUT US'
-        verbose_name_plural = 'ABOUT US'
+        verbose_name = 'About Us Page'
+        verbose_name_plural = 'About Us Page'
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
@@ -81,7 +121,7 @@ class WhyChooseUs(Orderable):
         related_name='why_choose_us'
     )
 
-    text = models.TextField(_('Why Choose Us?'),
+    text = models.TextField(_('Enter your reason'),
                             null=True,
                             blank=False,
                             help_text='Please enter your reasons.')
@@ -137,14 +177,18 @@ class Analytics(Page):
                              blank=False,
                              help_text='Enter the field name. ex: \"Number of clients\".')
 
+    date = models.DateTimeField(auto_now_add=True, null=True)
+
     search_fields = Page.search_fields + [
-        index.SearchField('value'),
         index.SearchField('field'),
+        index.SearchField('value'),
+        index.SearchField('date'),
     ]
 
     api_fields = [
-        APIField('value'),
         APIField('field'),
+        APIField('value'),
+        APIField('date'),
     ]
 
     class Meta:
@@ -153,8 +197,8 @@ class Analytics(Page):
 
     content_panels = Page.content_panels + [
         MultiFieldPanel([
-            FieldPanel('value'),
             FieldPanel('field'),
+            FieldPanel('value'),
         ], heading='Analytics')
     ]
 
@@ -181,14 +225,18 @@ class Clients(Page):
         related_name='+'
     )
 
+    date = models.DateTimeField(auto_now_add=True, null=True)
+
     search_fields = Page.search_fields + [
         index.SearchField('name'),
         index.SearchField('image'),
+        index.SearchField('date'),
     ]
 
     api_fields = [
         APIField('name'),
         APIField('image'),
+        APIField('date'),
     ]
 
     class Meta:
@@ -232,6 +280,8 @@ class Testimonials(Page):
                               help_text='Input your narrative speech.'
                               )
 
+    date = models.DateTimeField(auto_now_add=True, null=True)
+
     search_fields = Page.search_fields + [
         index.SearchField('name'),
     ]
@@ -240,6 +290,7 @@ class Testimonials(Page):
         APIField('name'),
         APIField('profile_image'),
         APIField('testimony'),
+        APIField('date'),
     ]
 
     class Meta:
