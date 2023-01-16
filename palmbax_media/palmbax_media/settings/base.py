@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'banner',
     'menu',
     'contact',
+    'services',
 
     # thirdparty
     "wagtail.api.v2",

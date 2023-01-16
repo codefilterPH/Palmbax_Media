@@ -67,11 +67,11 @@ class TestimonialAdmin(ModelAdmin):
     search_fields = ('name', 'date')
 
 
-class LibraryAdmin(ModelAdminGroup):
+class TestimonialGroupAdmin(ModelAdminGroup):
     menu_label = 'About'
     menu_icon = 'folder-open-inverse'  # change as required
     menu_order = 102  # will put in 3rd place (000 being 1st, 100 2nd)
     items = (AboutAdmin, AnalyticAdmin, ClientAdmin, TestimonialAdmin)
 
 
-modeladmin_register(LibraryAdmin)
+modeladmin_register(TestimonialGroupAdmin)

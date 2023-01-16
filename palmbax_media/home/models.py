@@ -10,4 +10,5 @@ class HomePage(Page):
         'about.AboutPage',
         'contact.ContactPage',
         'banner.BannerPage',
+        'services.ServicesPage'
     ]
