@@ -38,7 +38,7 @@ class ServicesPage(Page):
                                         blank=False,
                                         help_text='Enter any text to describe your service.')
 
-    service_image = models.ForeignKey(
+    service_profile_image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
         blank=True,
@@ -70,14 +70,21 @@ class ServicesPage(Page):
                                            )
 
     search_fields = Page.search_fields + [
-        index.SearchField('services_page_title'),
+        index.SearchField('title'),
+        index.FilterField('date'),
+
+        index.RelatedFields('services_page_title', [
+            index.SearchField('services_page_title'),
+            index.FilterField('date'),
+        ]),
     ]
 
     api_fields = [
         APIField('services_page_title'),
         APIField('page_description'),
         APIField('date'),
-        APIField('service_image'),
+        APIField('service_profile_image'),
+        APIField('service_background_image'),
         APIField('service_video'),
         APIField('service_youtube_url'),
         APIField('service_packages'),
@@ -90,7 +97,7 @@ class ServicesPage(Page):
             FieldPanel('page_description'),
         ], heading='Page Information'),
         MultiFieldPanel([
-            FieldPanel('service_image'),
+            FieldPanel('service_profile_image'),
             FieldPanel('service_background_image'),
             FieldRowPanel([
                 FieldPanel('service_video', classname='Col8'),

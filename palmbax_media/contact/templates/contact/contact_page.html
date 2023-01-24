@@ -4,23 +4,18 @@
     <div class="container-fluid">
         <div class="h-25 mw-100">{{my_map|safe}}</div>
     </div>
-    <div> {% for item in contact_form %}
-    <h1>{{ item.title }}</h1>
-    <p>
-        {{ item.intro | richtext }}
-    </p>
+    <div>
+        {% for item in contact_form %}
+        <h1>{{ item.title }}</h1>
+        <p>{{ item.intro | richtext }}</p>
+        {% endfor %}
+         <form action="{% pageurl page %}" method="POST">
+            {% csrf_token %}
+            <ul>{{ form.as_p }}</ul>
+            <button type="submit">Submit Form</button>
+        </form>
+    </div>
 
-    <form action="{% pageurl page %}" method="POST">
-        {% csrf_token %}
-        <ul>
-            {{ form.as_p }}
-        </ul>
-
-        <button type="submit">
-            Submit Form
-        </button>
-    </form>
-    {% endfor %}
-    {{address}}{{country}}</div>
-
+    <div>{% include 'book/book_page.html' %}</div><br><hr>
+{{address}}{{country}}
 {% endblock content %}

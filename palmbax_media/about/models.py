@@ -24,6 +24,7 @@ class AboutPage(Page):
     ]
     subpage_types = [
         'contact.ContactPage',
+        'contact.BookingPage',
         'about.Analytics',
         'about.Clients',
         'about.Testimonials',
@@ -44,7 +45,15 @@ class AboutPage(Page):
                                         max_length=500,
                                         null=True,
                                         blank=False,
-                                        help_text='Enter any text to describe your banner.')
+                                        help_text='Enter any text to describe your page.')
+
+    company_logo = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
 
     house = models.CharField(_('Building/House #'),
                              max_length=300,
@@ -78,6 +87,7 @@ class AboutPage(Page):
         APIField('about_page_title'),
         APIField('page_description'),
         APIField('details'),
+        APIField('company_logo'),
         APIField('house'),
         APIField('street'),
         APIField('city'),
@@ -91,6 +101,7 @@ class AboutPage(Page):
         MultiFieldPanel([
             FieldPanel('about_page_title'),
             FieldPanel('page_description'),
+            FieldPanel('company_logo'),
         ], heading='Page Information'),
         MultiFieldPanel([
             FieldRowPanel([
