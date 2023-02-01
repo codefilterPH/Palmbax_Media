@@ -1,16 +1,14 @@
 input {
     outline: none;
 }
-
-a {
+i, a, li {
     justify-content: center;
-    color: white;
+    color: #ffffff;
 }
-a:hover {
+li:hover {
     background-color: #EC3254;
     border-radius: 16px;
     font-weight: bold;
-    color: white;
 }
 #company_name {
     font-weight: bold;
@@ -19,5 +17,7 @@ a:hover {
     background-color: #EC3254;
     border-radius: 16px;
     font-weight: bold;
-    color: white;
+}
+footer {
+    background: linear-gradient(178.04deg, #2D2E2F 0.98%, #000000 97.3%);
 }

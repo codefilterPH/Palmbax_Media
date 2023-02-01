@@ -1,14 +1,10 @@
 {% load static wagtailcore_tags wagtailimages_tags menu_tags %}
 {% get_menu "main-menu" as nav %}
 {% block extra_css %}
-<style>
-  footer {
-    background: linear-gradient(178.04deg, #2D2E2F 0.98%, #000000 97.3%);
-  }
-</style>
+<style></style>
 {% endblock %}
 <!-- Footer -->
-<footer class="text-center text-lg-start bg-light text-muted">
+<footer class="text-center text-lg-start bg-light text-muted mt-5">
   <!-- Section: Social media -->
   <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
     <!-- Left -->
@@ -52,7 +48,7 @@
         <div class="col-md-3 col-lg-4 col-xl-4 mx-auto mb-4">
           <!-- Content -->
           <h6 class="text-uppercase fw-bold mb-4">
-            <i class="fas fa-gem me-3"></i>{{nav.company_name}}
+            <i class="fas fa-gem me-3"></i> {{nav.company_name}}
           </h6>
           <p>{{nav.detail | richtext }}</p>
         </div>
@@ -64,14 +60,20 @@
           <h6 class="text-uppercase fw-bold mb-4">
             Pages
           </h6>
-          {% for item in nav.menu_items.all %}
-          <p><a href="{{item.link}}" class="text-reset">{{item.title}}</a></p>
-          {% endfor %}
+
+          <nav>
+            <ul id="navbar" class="navbar-nav ml-auto">
+              {% for item in nav.menu_items.all %}
+              <li class="nav-item"><a class="nav-link" href="{{item.link}}" class="text-reset">{{item.title}}</a>
+              {% endfor %}
+            </ul>
+          </nav>
+
         </div>
         <!-- Grid column -->
 
         <!-- Grid column -->
-        <div class="col-md-4 col-lg-3 col-xl-4 mx-auto mb-md-0 mb-4">
+        <div class="col-md-4 col-lg-3 col-xl-4 mx-auto mb-md-0 mb-4 text-left">
           <!-- Links -->
           <h6 class="text-uppercase fw-bold mb-4">Contact Information</h6>
           <p><i class="fas fa-home me-3"></i> {{nav.address}}</p>
