@@ -47,14 +47,6 @@ class AboutPage(Page):
                                         blank=False,
                                         help_text='Enter any text to describe your page.')
 
-    company_logo = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
-
     house = models.CharField(_('Building/House #'),
                              max_length=300,
                              null=True,
@@ -87,7 +79,6 @@ class AboutPage(Page):
         APIField('about_page_title'),
         APIField('page_description'),
         APIField('details'),
-        APIField('company_logo'),
         APIField('house'),
         APIField('street'),
         APIField('city'),
@@ -101,7 +92,6 @@ class AboutPage(Page):
         MultiFieldPanel([
             FieldPanel('about_page_title'),
             FieldPanel('page_description'),
-            FieldPanel('company_logo'),
         ], heading='Page Information'),
         MultiFieldPanel([
             FieldRowPanel([
