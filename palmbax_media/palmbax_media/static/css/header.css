@@ -2,3 +2,22 @@ input {
     outline: none;
 }
 
+a {
+    justify-content: center;
+    color: white;
+}
+a:hover {
+    background-color: #EC3254;
+    border-radius: 16px;
+    font-weight: bold;
+    color: white;
+}
+#company_name {
+    font-weight: bold;
+}
+.selected {
+    background-color: #EC3254;
+    border-radius: 16px;
+    font-weight: bold;
+    color: white;
+}

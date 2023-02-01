@@ -1,4 +1,4 @@
- <!-- JavaScript -->
+
 // If you want to change the color of the text on hover:
 
 const links = document.querySelectorAll('nav a');
