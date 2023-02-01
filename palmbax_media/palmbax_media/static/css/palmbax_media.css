@@ -3,12 +3,13 @@ input {
 }
 i, a, li {
     justify-content: center;
-    color: #ffffff;
+    color: grey;
 }
-li:hover {
+li:hover, i:hover {
     background-color: #EC3254;
     border-radius: 16px;
     font-weight: bold;
+    color: #ffffff;
 }
 #company_name {
     font-weight: bold;
