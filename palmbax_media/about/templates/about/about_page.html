@@ -1,11 +1,9 @@
 {% extends "base.html" %}
 {% load static wagtailcore_tags wagtailimages_tags %}
-{% block content %}
 
-    <!--Analytics-->
-<br>{% include 'about/analytics_page.html' %}<br>
+{% block content %}
     <!--About Us!-->
-<div>
+<div class="container-fluid">
         <table>
     <tr>
         {% for image in self.about_us_img.all %}

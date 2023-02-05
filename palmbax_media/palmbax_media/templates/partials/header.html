@@ -3,8 +3,8 @@
 
 {% block extra_css %}
 <style>
-  .navbar-brand, .nav-link {
-    color: {{ nav.font_color }};
+  .navbar-brand, .nav-link, a{
+      color: {{ nav.font_color }};
   }
   #company_name {
     color: {{ nav.font_color }};
@@ -16,6 +16,7 @@
   }
   .selected:hover {
     color: {{ nav.bg_color }};
+    background-color: {{ nav.font_color }};
   }
   a:hover {
     color: {{ nav.font_color }};
@@ -28,6 +29,13 @@
     .custom_search_container {
      background-color: {{ nav.font_color }};
      border:none;
+    }
+    .navbar-toggler-icon {
+     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='white' stroke-width='3' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+    }
+  {% else %}
+    .navbar-toggler-icon {
+     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='black' stroke-width='3' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
     }
   {% endif %}
 

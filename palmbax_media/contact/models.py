@@ -72,7 +72,7 @@ class ContactPage(AbstractEmailForm):
         # generate map
         my_map = folium.Map(location=[latitude, longitude],
                             tiles='openstreetmap',
-                            zoom_start=10,
+                            zoom_start=15,
                             control_scale=True)
         folium.Marker([latitude, longitude],
                       tooltip=country,
@@ -82,8 +82,6 @@ class ContactPage(AbstractEmailForm):
         context = super().get_context(request, *args, **kwargs)
         # Get representation of map objects
         context['my_map'] = my_map._repr_html_()
-        context['address'] = address
-        context['country'] = country
         context['contact_data'] = ContactPage.objects.all()
 
         return context

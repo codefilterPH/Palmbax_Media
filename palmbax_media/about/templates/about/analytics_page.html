@@ -9,7 +9,7 @@
   width: {{ img.width }}px;
 }
 
-.container-fluid {
+#about_container {
   position: relative;
   top: 59px;
   display: flex;
@@ -67,7 +67,7 @@
 {% endblock extra_css %}
 {% block content %}
 
-<div class="container-fluid custom-background p-4">
+<div id="about_container" class="container-fluid custom-background p-4">
   <div class="row">
     {% for item in analytics %}
       <div class="col-sm-3 col-sm-12 p-2">

@@ -12,9 +12,6 @@ li:hover {
     border-radius: 16px;
     font-weight: bold;
 }
-.selected {
-    border-radius: 16px;
-}
 #company_name {
     font-size: 30px;
 }
@@ -41,6 +38,4 @@ input {
    padding: 4px;
    width: 100%;
 }
-
-/* Contact page */
 

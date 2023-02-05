@@ -1,23 +1,54 @@
 {% extends "base.html" %}
-{% load static wagtailcore_tags wagtailimages_tags %}
-{% block style %}
+{% load static wagtailcore_tags wagtailimages_tags menu_tags %}
+{% get_menu "main-menu" as theme %}
+{% block extra_css %}
 <style>
+    #contact_page {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 150px;
+        margin-bottom: 160px;
+    }
+    .my-css-class{
+        height: 340px;
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+
+    }
+    h1 {
+        display: flex;
+        color: black;
+    }
+    #Mybutton {
+        background-color: {{theme.bg_color}};
+        color: {{theme.font_color}};
+        align-items: center;
+        justify-content: center;
+    }
 </style>
 {% endblock %}
 {% block content %}
-    <div class="contact_page my-css-class">
-        <div class="h-25 mw-100">{{my_map|safe}}</div>
+<div id="contact_page" class="container-fluid">
+    <div class="col-sm-2"></div>
+    <div class="col-lg-8">
+        <div class="row">
+             <h1>Contact Page</h1>
+        </div>
+        <div class="row">
+            <form action="{% pageurl page %}" method="POST">{% csrf_token %}
+                <ul>{{ form.as_p }}</ul>
+                <button id="Mybutton" type="submit">Submit Form</button>
+            </form>
+        </div>
+        <div class="row">
+            <div class="my-css-class">{{my_map|safe}}</div>
+        </div>
     </div>
-    <div>
-        {% for item in contact_form %}
-        <h1>{{ item.title }}</h1>
-        {% endfor %}
-         <form action="{% pageurl page %}" method="POST">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Submit Form</button>
-        </form>
-    </div>
+    <div class="col-sm-2"></div>
 
-    <div>{% include 'book/book_page.html' %}</div><br><hr>
+
+</div>
+
 {% endblock %}

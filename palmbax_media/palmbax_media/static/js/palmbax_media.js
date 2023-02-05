@@ -1,18 +1,4 @@
 
-// If you want to change the color of the text on hover:
-
-const links = document.querySelectorAll('nav a');
-
-links.forEach(link => {
-  link.addEventListener('mouseenter', e => {
-    link.style.color = '';
-  });
-
-  link.addEventListener('mouseleave', e => {
-
-  });
-});
-
 //keep the selection on a navigation bar item when it's clicked except home
 const navbar = document.querySelector("#navbar");
 const click_links = navbar.querySelectorAll("a");
@@ -40,7 +26,9 @@ const selectedItem = localStorage.getItem("selectedNavbarItem");
 if (selectedItem && location.pathname !== "/") {
   // If a selected item was saved and the page is not "Home", find it in the navbar and add the selected class
   const selectedLink = Array.from(click_links).find(link => link.innerText === selectedItem);
-  selectedLink.classList.add("selected");
+    if (selectedLink) {
+        selectedLink.classList.add("selected");
+    }
 }
 
 
