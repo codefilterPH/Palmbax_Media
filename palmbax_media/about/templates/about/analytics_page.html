@@ -1,10 +1,81 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% load static cache wagtailcore_tags wagtailimages_tags %}
+{% block extra_css %}
+<style>
 
-</body>
-</html>
+{% image analytics_background_img original as img %}
+.custom-background -{{ forloop.counter }} {
+  background-image: url({{ img.file.url }});
+  height: {{ img.height }}px;
+  width: {{ img.width }}px;
+}
+
+.container-fluid {
+  position: relative;
+  top: 33px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+  overflow: hidden;
+}
+@media (max-width: 767px) {
+  .custom-background {
+    background-color: #fff;
+    flex-direction: column;
+  }
+}
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.row .col-md-4 {
+  width: 20%;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.row .col-md-4 .row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#analytic_value_properties {
+    position: relative;
+    width: 110%;
+    height: 70%;
+
+    font-family: 'Sofia Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 50px;
+    line-height: 60px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    background: linear-gradient(180deg, #FFD700 0%, #F57600 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+
+}
+</style>
+{% endblock extra_css %}
+{% block content %}
+
+<div class="container-fluid custom-background p-4">
+  <div class="row">
+    {% for item in analytics %}
+      <div class="col-sm-3 col-sm-12 p-2">
+          <div id="analytic_value_properties" class="row">{{ item.value }}</div>
+          <div class="row">{{ item.field }}</div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

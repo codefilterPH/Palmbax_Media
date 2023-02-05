@@ -16,7 +16,7 @@
     <!-- Right -->
     <div>
       <a href="" class="me-4 text-reset">
-        <i class="fab fa-facebook-f"></i>
+        <i class="fab fa-facebook"></i>
       </a>&nbsp;
       <a href="" class="me-4 text-reset">
         <i class="fab fa-twitter"></i>
@@ -45,7 +45,7 @@
       <!-- Grid row -->
       <div class="row mt-3">
         <!-- Grid column -->
-        <div class="col-md-3 col-lg-4 col-xl-4 mx-auto mb-4">
+        <div class="col-md-6 col-lg-4 col-xl-4 mx-auto mb-4">
           <!-- Content -->
           <h6 class="text-uppercase fw-bold mb-4">
             <i class="fas fa-gem me-3"></i> {{nav.company_name}}
@@ -55,14 +55,14 @@
         <!-- Grid column -->
 
         <!-- Grid column -->
-        <div class="col-md-2 col-lg-2 col-xl-4 mx-auto mb-4">
+        <div class="col-md-3 col-lg-2 col-xl-4 mx-auto mb-4">
           <!-- Links -->
           <h6 class="text-uppercase fw-bold mb-4">
             Pages
           </h6>
 
           <nav>
-            <ul id="navbar" class="navbar-nav ml-auto">
+            <ul id="footer" class="navbar-nav ml-auto">
               {% for item in nav.menu_items.all %}
               <li class="nav-item"><a class="nav-link" href="{{item.link}}" class="text-reset">{{item.title}}</a>
               {% endfor %}
@@ -73,7 +73,7 @@
         <!-- Grid column -->
 
         <!-- Grid column -->
-        <div class="col-md-4 col-lg-3 col-xl-4 mx-auto mb-md-0 mb-4 text-left">
+        <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mb-md-0 mb-4 text-left">
           <!-- Links -->
           <h6 class="text-uppercase fw-bold mb-4">Contact Information</h6>
           <p><i class="fas fa-home me-3"></i> {{nav.address}}</p>
@@ -90,7 +90,7 @@
   <!-- Section: Links  -->
 
   <!-- Copyright -->
-  <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+  <div class="text-center p-4">
     © 2023 Copyright:
     <a class="text-reset fw-bold" href="https://codefilter.pythonanywhere.com/">Codefilter PH</a>
   </div>

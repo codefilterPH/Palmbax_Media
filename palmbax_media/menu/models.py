@@ -29,13 +29,7 @@ class MenuItem(Orderable):
         null=True,
         max_length=50
     )
-    link_icon = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
+
     link_url = models.CharField(
         max_length=500,
         blank=True
@@ -53,7 +47,6 @@ class MenuItem(Orderable):
 
     panels = [
         FieldPanel("link_title"),
-        FieldPanel("link_icon"),
         FieldPanel("link_url"),
         PageChooserPanel("link_page"),
         FieldPanel("open_in_new_tab"),
@@ -169,5 +162,5 @@ class Menu(ClusterableModel):
         return self.title
 
     class Meta:
-        verbose_name = 'Menu'
-        verbose_name_plural = 'Menus'
+        verbose_name = 'Main Setup'
+        verbose_name_plural = 'Main Setup'

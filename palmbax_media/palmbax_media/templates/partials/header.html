@@ -5,34 +5,29 @@
 <style>
 </style>
 {% endblock %}
-<nav class="navbar navbar-expand-lg fixed-top navbar-dark" style="background-color: #000A2C;">
-  {% image nav.company_logo original as img %}
-  <img id="hide" src="{{img.url}}" width="30" height="30" class="d-inline-block align-top" alt="">&nbsp;
-  <a id="company_name" class="navbar-brand" href="/"> {{nav.company_name}}</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+  <nav class="navbar navbar-expand-lg fixed-top navbar-light">
+    {% image nav.company_logo original as img %}
+    <img id="comp_logo" id="hide" src="{{img.url}}" width="30" height="30" class="d-inline-block align-top" alt="">&nbsp;
+    <a id="company_name" class="navbar-brand" href="/"> {{nav.company_name}}</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul id="navbar" class="navbar-nav ml-auto">
-       {% for item in nav.menu_items.all %}
-      <li class="nav-item">
-        <a class="nav-link" href="{{item.link}}"><span>
-          {% if item.link_icon %}
-            {% image item.link_icon original as img %}
-            <img src="{{img.url}}" width="17" height="20" class="d-inline-block" alt="">&nbsp;
-          {% endif %}
-          &nbsp;{{item.title}}</span></a>
-      </li>
-      {% endfor %}
-    </ul>&nbsp;
-    <form class="form-inline my-2 my-lg-0">
-      <div style="background:#FFFFFF; border-radius:16px; width:100%; height:50;">&nbsp;
-        <i class="fa-solid fa-magnifying-glass" style="width:20px; height:23px; padding-top:13px;"></i>
-        <input class="" style="flex:1; border:none; outline:none; margin:5px" type="search" placeholder="Search" aria-label="Search">
-      </div>
-    </form>
-  </div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul id="navbar" class="navbar-nav ml-auto">
+         {% for item in nav.menu_items.all %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{item.link}}"> {{item.title}}</a>
+        </li>
+        {% endfor %}
+      </ul>&nbsp;
+      <form class="form-inline my-2 my-lg-0">
+        <div class="custom_search_container">&nbsp;
+          <i class="fas fa-search"></i>
+          <input type="search" placeholder="Search" aria-label="Search">
+        </div>
+      </form>
+    </div>
 </nav>
 {% block extra_js %}
 <script>

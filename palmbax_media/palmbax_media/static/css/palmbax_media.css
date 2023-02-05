@@ -1,24 +1,42 @@
-input {
-    outline: none;
-}
-i, a, li {
+nav, a {
     justify-content: center;
-    color: grey;
 }
-li:hover, i:hover {
-    background-color: #EC3254;
+.navbar {
+    background-color: #ffffff;
+    display: flex;
+    padding: 25px;
+}
+li:hover {
     border-radius: 16px;
-    font-weight: bold;
-    color: #ffffff;
-}
-#company_name {
     font-weight: bold;
 }
 .selected {
-    background-color: #EC3254;
     border-radius: 16px;
-    font-weight: bold;
 }
-footer {
-    background: linear-gradient(178.04deg, #2D2E2F 0.98%, #000000 97.3%);
+#company_name {
+    font-size: 30px;
 }
+#comp_logo {
+    border-radius: 6px;
+    height: 40px;
+    width:40px;
+}
+.fas fa-search {
+    width:20px;
+    height:23px;
+    padding-top:13px;
+}
+input {
+    border: none;
+    outline: none;
+}
+.custom_search_container {
+   border: 1px solid black;
+   border-radius: 8px;
+   height: 40px;
+   align-items: center;
+   justify-content: center;
+   padding: 5px;
+   width: 100%;
+}
+

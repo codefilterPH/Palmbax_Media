@@ -1,18 +1,11 @@
 {% extends "base.html" %}
 {% load static wagtailcore_tags wagtailimages_tags %}
 {% block content %}
+
     <!--Analytics-->
-    <br>
-    <div class="container">
-        {% for item in analytics %}
-        <div class="col">
-            <div class="row">{{item.value}}</div>
-            <div class="row">{{item.field}}</div>
-        </div>
-        {% endfor %}
-    </div>
+<br>{% include 'about/analytics_page.html' %}<br>
     <!--About Us!-->
-    <div>
+<div>
         <table>
     <tr>
         {% for image in self.about_us_img.all %}
@@ -26,7 +19,7 @@
             <ul><li>{{item.text}}</li></ul>
         {% endfor %}
     </tr>
-</table>
-    </div>
+    </table>
+</div>
 
-{% endblock content %}
+{% endblock %}

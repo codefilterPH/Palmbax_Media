@@ -5,11 +5,11 @@ const links = document.querySelectorAll('nav a');
 
 links.forEach(link => {
   link.addEventListener('mouseenter', e => {
-    link.style.color = '#FFFFFF';
+    link.style.color = '';
   });
 
   link.addEventListener('mouseleave', e => {
-    link.style.color = '#fff';
+
   });
 });
 
@@ -42,3 +42,25 @@ if (selectedItem && location.pathname !== "/") {
   const selectedLink = Array.from(click_links).find(link => link.innerText === selectedItem);
   selectedLink.classList.add("selected");
 }
+
+
+// Get all the footer links
+const footerLinks = document.querySelectorAll('#footer');
+const footer = footerLinks[0];
+const click_links2 = footer.querySelectorAll("a");
+
+// Get the header navigation list
+const headerNavList = document.getElementById('navbar');
+
+// Loop through the footer links and add click event listeners
+click_links2.forEach((link, index) => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    // Get the corresponding header navigation link
+    const headerNavLink = headerNavList.querySelectorAll('a')[index];
+
+    // Trigger a click event on the header navigation link
+    headerNavLink.click();
+  });
+});

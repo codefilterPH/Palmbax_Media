@@ -25,7 +25,7 @@ class AboutPage(Page):
     subpage_types = [
         'contact.ContactPage',
         'contact.BookingPage',
-        'about.Analytics',
+        'about.AnalyticSettings',
         'about.Clients',
         'about.Testimonials',
     ]
@@ -162,9 +162,9 @@ class AboutUsImage(Orderable):
 
 class Analytics(Page):
     """Subpage from about page"""
-    template = 'analytics_page.html'
+    template = 'about/analytics_page.html'
     parent_page_types = [
-        'about.AboutPage',
+        'about.AnalyticSettings',
     ]
 
     value = models.PositiveSmallIntegerField(_('Analytic Value'),
@@ -178,23 +178,18 @@ class Analytics(Page):
                              blank=False,
                              help_text='Enter the field name. ex: \"Number of clients\".')
 
-    date = models.DateTimeField(auto_now_add=True, null=True)
-
     search_fields = Page.search_fields + [
         index.SearchField('field'),
-        index.SearchField('value'),
-        index.SearchField('date'),
     ]
 
     api_fields = [
         APIField('field'),
         APIField('value'),
-        APIField('date'),
     ]
 
     class Meta:
-        verbose_name = _('Analytic')
-        verbose_name_plural = _('Analytics')
+        verbose_name = _('Analytic Entry Page')
+        verbose_name_plural = _('Analytic Entry Pages')
 
     content_panels = Page.content_panels + [
         MultiFieldPanel([
@@ -202,6 +197,52 @@ class Analytics(Page):
             FieldPanel('value'),
         ], heading='Analytics')
     ]
+
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        context['analytics'] = Analytics.objects.live().order_by('first_published_at')
+
+        return context
+
+
+class AnalyticSettings(Analytics):
+    parent_page_types = [
+        'about.AboutPage',
+    ]
+    subpage_types = [
+        'about.Analytics',
+    ]
+
+    max_count = 1;
+    template = "about/analytics_page.html"
+
+    analytics_background_img = models.ForeignKey(
+        "wagtailimages.Image",
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        help_text="Background image. Best size for this image will be 1400x400",
+    )
+
+    class Meta:
+        verbose_name = _('Analytic Setup Page')
+        verbose_name_plural = _('Analytics Setup Page')
+
+    content_panels = Page.content_panels + [
+        MultiFieldPanel([
+            FieldPanel('analytics_background_img'),
+        ], heading='Analytic Page Setup'),
+        MultiFieldPanel([
+            FieldPanel('field'),
+            FieldPanel('value'),
+        ], heading='Analytics First Entry')
+    ]
+
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        context['analytics'] = Analytics.objects.live().order_by('first_published_at')
+
+        return context
 
 
 class Clients(Page):
