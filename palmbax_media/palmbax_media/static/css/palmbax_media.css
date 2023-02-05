@@ -1,8 +1,10 @@
+{% load menu_tags %}
+{% get_menu "main-menu" as theme %}
+
 nav, a {
     justify-content: center;
 }
 .navbar {
-    background-color: #ffffff;
     display: flex;
     padding: 25px;
 }
@@ -21,14 +23,14 @@ li:hover {
     height: 40px;
     width:40px;
 }
-.fas fa-search {
+.fas.fa-search {
     width:20px;
     height:23px;
-    padding-top:13px;
 }
 input {
     border: none;
     outline: none;
+    height: 100%;
 }
 .custom_search_container {
    border: 1px solid black;
@@ -36,7 +38,7 @@ input {
    height: 40px;
    align-items: center;
    justify-content: center;
-   padding: 5px;
+   padding: 4px;
    width: 100%;
 }
 

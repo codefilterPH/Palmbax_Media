@@ -1,10 +1,22 @@
 {% load static wagtailcore_tags wagtailimages_tags menu_tags %}
 {% get_menu "main-menu" as nav %}
 {% block extra_css %}
-<style></style>
+<style>
+  footer {
+    background-color: {{ nav.bg_color }};
+    color: {{ nav.font_color }};
+  }
+  i {
+    color: {{ nav.font_color }};
+  }
+  #custom_icon, #custom_name {
+    background-color: {{ nav.bg_color }};
+    color: {{ nav.font_color }};
+  }
+</style>
 {% endblock %}
 <!-- Footer -->
-<footer class="text-center text-lg-start bg-light text-muted mt-5">
+<footer class="text-center text-lg-start mt-5">
   <!-- Section: Social media -->
   <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
     <!-- Left -->
@@ -92,7 +104,7 @@
   <!-- Copyright -->
   <div class="text-center p-4">
     © 2023 Copyright:
-    <a class="text-reset fw-bold" href="https://codefilter.pythonanywhere.com/">Codefilter PH</a>
+    <a id="custom_name" class="text-reset fw-bold" href="https://codefilter.pythonanywhere.com/">Codefilter PH</a>
   </div>
   <!-- Copyright -->
 </footer>

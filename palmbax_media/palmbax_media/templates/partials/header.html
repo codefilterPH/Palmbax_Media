@@ -3,9 +3,37 @@
 
 {% block extra_css %}
 <style>
+  .navbar-brand, .nav-link {
+    color: {{ nav.font_color }};
+  }
+  #company_name {
+    color: {{ nav.font_color }};
+  }
+  .selected {
+    border-radius: 16px;
+    background-color: {{ nav.font_color }};
+    color: {{ nav.bg_color }};
+  }
+  .selected:hover {
+    color: {{ nav.bg_color }};
+  }
+  a:hover {
+    color: {{ nav.font_color }};
+  }
+
+  {% if nav.bg_color == '#3c3c3c' or nav.bg_color == '#37a1fe' %}
+    .fas.fa-search {
+      color: {{ nav.bg_color }};
+    }
+    .custom_search_container {
+     background-color: {{ nav.font_color }};
+     border:none;
+    }
+  {% endif %}
+
 </style>
 {% endblock %}
-  <nav class="navbar navbar-expand-lg fixed-top navbar-light">
+  <nav class="navbar navbar-expand-lg fixed-top" style="background-color: {{nav.bg_color}}">
     {% image nav.company_logo original as img %}
     <img id="comp_logo" id="hide" src="{{img.url}}" width="30" height="30" class="d-inline-block align-top" alt="">&nbsp;
     <a id="company_name" class="navbar-brand" href="/"> {{nav.company_name}}</a>

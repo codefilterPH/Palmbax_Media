@@ -17,7 +17,7 @@ class MenuAdmin(ModelAdmin):
     add_to_settings_menu = True  # or True to add your model to the Settings sub-menu
     exclude_from_explorer = False  # or True to exclude pages of this type from Wagtail's explorer view
     add_to_admin_menu = True  # or False to exclude your model from the menu
-    list_display = ('company_name', 'address', 'email', 'phone')
+    list_display = ('company_name', 'address', 'email', 'phone', 'bg_color', 'font_color')
     list_filter = ('company_name', 'address', 'email', 'phone')
     search_fields = ('company_name',)
 

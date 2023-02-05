@@ -127,6 +127,25 @@ class Menu(ClusterableModel):
                                                  null=True,
                                                  blank=False,
                                                  help_text='Enter your telephone phone number.')
+
+    COLOR_CHOICES = [
+        ('#ffffff', 'light'),
+        ('#3c3c3c', 'dark'),
+        ('#37a1fe', 'blue'),
+    ]
+
+    bg_color = models.CharField(_('Background Color'),
+                                max_length=7,
+                                choices=COLOR_CHOICES,
+                                default='#ffffff',
+                                )
+
+    font_color = models.CharField(_('Font Color'),
+                                  max_length=7,
+                                  choices=COLOR_CHOICES,
+                                  default='#3c3c3c',
+                                  )
+
     # slug = models.SlugField()
 
     api_fields = [
@@ -140,6 +159,12 @@ class Menu(ClusterableModel):
     ]
 
     panels = [
+        MultiFieldPanel([
+            FieldRowPanel([
+                FieldPanel('font_color', classname='Col2'),
+                FieldPanel('bg_color', classname='Col2'),
+            ]),
+        ], heading='Theme'),
         MultiFieldPanel([
             FieldPanel('company_name'),
             FieldPanel('company_logo'),
