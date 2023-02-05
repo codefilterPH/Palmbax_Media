@@ -10,16 +10,16 @@ from .models import *
 class AboutAdmin(ModelAdmin):
     """About admin."""
     model = AboutPage
-    base_url_path = 'about-model-admin'
+    base_url_path = 'about-page-admin'
     menu_label = 'About'  # ditch this to use verbose_name_plural from model
     menu_icon = 'pick'  # change as required
     menu_order = 100  # will put in 3rd place (000 being 1st, 100 2nd)
     add_to_settings_menu = False  # or True to add your model to the Settings sub-menu
     exclude_from_explorer = False  # or True to exclude pages of this type from Wagtail's explorer view
     add_to_admin_menu = True  # or False to exclude your model from the menu
-    list_display = ('about_page_title', 'page_description', 'date')
-    list_filter = ('about_page_title', 'date')
-    search_fields = ('about_page_title',)
+    list_display = ('title', 'live', 'first_published_at', 'last_published_at')
+    list_filter = ('title', 'live', 'first_published_at', 'last_published_at')
+    search_fields = ('title',)
 
 
 class AnalyticIndexAdmin(ModelAdmin):

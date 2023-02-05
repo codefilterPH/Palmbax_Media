@@ -32,56 +32,27 @@ class AboutPage(Page):
 
     template = 'about/about_page.html'
 
-    date = models.DateTimeField(auto_now_add=True, null=True)
-
-    about_page_title = models.CharField(_('About Page Subtitle'),
-                                        max_length=50,
-                                        default='About Page',
-                                        null=True,
-                                        blank=False,
-                                        help_text='This is the About Page.')
-
-    page_description = models.TextField(_('Page Description'),
-                                        max_length=500,
-                                        null=True,
-                                        blank=False,
-                                        help_text='Enter any text to describe your page.')
-
-    house = models.CharField(_('Building/House #'),
-                             max_length=300,
-                             null=True,
-                             blank=False,
-                             help_text='Please enter your building or house number.')
-
-    street = models.CharField(_('Street and Barangay'),
-                              max_length=300,
-                              null=True,
-                              blank=False,
-                              help_text='Please enter your company\'s street location and barangay.')
-
-    city = models.CharField(_('City'),
-                            max_length=100,
-                            null=True,
-                            blank=False,
-                            help_text='Please enter your company\'s city location.')
-
     details = RichTextField(_('Company Details'),
                             max_length=1000,
                             blank=True,
                             features=['italic', 'bold'],
                             help_text='Enter your company narrative details.')
 
+    cover_photo = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
     search_fields = Page.search_fields + [
-        index.SearchField('about_page_title'),
+        index.SearchField('title'),
     ]
 
     api_fields = [
-        APIField('about_page_title'),
-        APIField('page_description'),
         APIField('details'),
-        APIField('house'),
-        APIField('street'),
-        APIField('city'),
+        APIField('cover_photo'),
         APIField('why_choose_us'),
         APIField('about_us_img'),
         APIField('analytics'),
@@ -90,18 +61,9 @@ class AboutPage(Page):
     ]
     content_panels = Page.content_panels + [
         MultiFieldPanel([
-            FieldPanel('about_page_title'),
-            FieldPanel('page_description'),
-        ], heading='Page Information'),
-        MultiFieldPanel([
-            FieldRowPanel([
-                FieldPanel('house', classname="col8"),
-                FieldPanel('street', classname="col10"),
-                FieldPanel('city', classname="col8"),
-            ]),
             FieldPanel('details'),
             InlinePanel('why_choose_us', label='Why choose us'),
-            InlinePanel('about_us_img', label='Featured Image(s)'),
+            InlinePanel('about_us_img', label='People and Position'),
         ], heading='About Us Information')
     ]
 
@@ -136,28 +98,48 @@ class WhyChooseUs(Orderable):
         verbose_name_plural = 'WHY CHOOSE US?'
 
 
-class AboutUsImage(Orderable):
+@register_snippet
+class CompanyRole(models.Model):
+    role_name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.role_name
+
+
+class People(Orderable):
     page = ParentalKey(
         'AboutPage',
         on_delete=models.CASCADE,
         related_name='about_us_img',
     )
-
-    image = models.ForeignKey(
+    profile = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
         related_name='+'
     )
+    name = models.TextField(_('Enter Employee/Staff Name'),
+                            null=True,
+                            blank=False,
+                            help_text='Please enter your reasons.')
+    role = models.ForeignKey(CompanyRole, on_delete=models.CASCADE)
 
     panels = [
-        FieldPanel('image')
+        MultiFieldPanel([
+            FieldPanel('profile'),
+            FieldPanel('name'),
+            FieldPanel('role'),
+        ], heading='People'),
+
     ]
 
     class Meta:
-        verbose_name = 'Featured Image'
-        verbose_name_plural = 'Featured Images'
+        verbose_name = 'People and Position'
+        verbose_name_plural = 'People and Position'
+
+    def __str__(self):
+        return self.name
 
 
 class Analytics(Page):

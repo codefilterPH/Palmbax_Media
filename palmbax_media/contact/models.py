@@ -18,7 +18,7 @@ from wagtail.contrib.forms.models import (
     AbstractEmailForm,
     AbstractFormField
 )
-from about.models import *
+from menu.models import *
 
 # third party
 import folium
@@ -36,31 +36,14 @@ class ContactFormField(AbstractFormField):
 class ContactPage(AbstractEmailForm):
     max_count = 1
     parent_page_types = [
-        'about.AboutPage',
+        'home.HomePage',
     ]
     template = 'contact/contact_page.html'
     landing_page_template = "contact/contact_page_landing.html"
-
-    date = models.DateTimeField(auto_now_add=True, null=True)
-
-    contact_page_title = models.CharField(_('Contact Page Subtitle'),
-                                          max_length=50,
-                                          default='Contact Page',
-                                          null=True,
-                                          blank=False,
-                                          help_text='This is the Contact Page.')
-
-    page_description = models.TextField(_('Page Description'),
-                                        max_length=500,
-                                        null=True,
-                                        blank=False,
-                                        help_text='Enter any text to describe your page.')
-
-    contact_thank_you_text = RichTextField(blank=True)
+    contact_thank_you_text = RichTextField(blank=True, default='Thank you for contacting us! We\'ll get back to you '
+                                                               'shortly.')
 
     content_panels = AbstractEmailForm.content_panels + [
-        FieldPanel('contact_page_title'),
-        FieldPanel('page_description'),
         MultiFieldPanel([
             InlinePanel('form_fields', label='Form Fields'),
             FieldPanel('contact_thank_you_text'),
@@ -79,7 +62,7 @@ class ContactPage(AbstractEmailForm):
         verbose_name_plural = _('Contact Page')
 
     def get_context(self, request, *args, **kwargs):
-        address = AboutPage.objects.values_list('city')
+        address = Menu.objects.values_list('address')
 
         location = geocoder.osm(address)
         latitude = location.lat
@@ -121,27 +104,9 @@ class BookingPage(AbstractEmailForm):
     ]
     template = 'book/book_page.html'
     landing_page_template = "book/book_page_landing.html"
-
-    date = models.DateTimeField(auto_now_add=True, null=True)
-
-    book_page_title = models.CharField(_('Booking Page Subtitle'),
-                                       max_length=50,
-                                       default='Booking Page',
-                                       null=True,
-                                       blank=False,
-                                       help_text='This is the Contact Page.')
-
-    page_description = models.TextField(_('Page Description'),
-                                        max_length=500,
-                                        null=True,
-                                        blank=False,
-                                        help_text='Enter any text to describe your page.')
-
     book_thank_you_text = RichTextField(blank=True)
 
     content_panels = AbstractEmailForm.content_panels + [
-        FieldPanel('book_page_title'),
-        FieldPanel('page_description'),
         MultiFieldPanel([
             InlinePanel('form_fields', label='Form Fields'),
             FieldPanel('book_thank_you_text'),
