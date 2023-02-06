@@ -1,19 +1,22 @@
 {% load menu_tags %}
 {% get_menu "main-menu" as theme %}
-
+img {
+    width: 100%;
+    position: relative;
+    display: flex;
+}
 nav, a {
     justify-content: center;
 }
 .navbar {
     display: flex;
-    padding: 25px;
+    padding: 5px;
+    width: 100%;
+    flex-wrap: wrap;
 }
 li:hover {
     border-radius: 16px;
     font-weight: bold;
-}
-#company_name {
-    font-size: 30px;
 }
 #comp_logo {
     border-radius: 6px;
@@ -37,5 +40,43 @@ input {
    justify-content: center;
    padding: 4px;
    width: 100%;
+
+@media only screen and (min-width: 960px) {
+    /* styles for browsers larger than 960px; */
+    .navbar-brand {
+        font-size: 20px;
+        margin-right: 7rem;
+    }
+}
+@media only screen and (min-width: 1440px) {
+    /* styles for browsers larger than 1440px; */
+}
+@media only screen and (min-width: 2000px) {
+    /* for sumo sized (mac) screens */
+}
+@media only screen and (max-device-width: 480px) {
+    /* styles for mobile browsers smaller than 480px; (iPhone) */
+    .navbar-brand {
+        font-size: 20px;
+        margin-right: 1rem;
+    }
+    #company_name {
+        font-size: 20px;
+        margin-right: 1rem;
+    }
+}
+@media only screen and (min-device-width: 768px {
+   /* default iPad screens */
+    a {
+        font-size: 20px;
+        margin-right: 7rem;
+    }
+}
+/* different techniques for iPad screening */
+@media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait) {
+  /* For portrait layouts only */
 }
 
+@media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape) {
+  /* For landscape layouts only */
+}

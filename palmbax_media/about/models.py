@@ -35,7 +35,7 @@ class AboutPage(Page):
     details = RichTextField(_('Company Details'),
                             max_length=1000,
                             blank=True,
-                            features=['italic', 'bold'],
+                            features=['bold'],
                             help_text='Enter your company narrative details.')
 
     cover_photo = models.ForeignKey(
@@ -43,7 +43,7 @@ class AboutPage(Page):
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+'
+        help_text="Background image. Best size for this image will be 1400x500",
     )
 
     search_fields = Page.search_fields + [
@@ -54,16 +54,17 @@ class AboutPage(Page):
         APIField('details'),
         APIField('cover_photo'),
         APIField('why_choose_us'),
-        APIField('about_us_img'),
+        APIField('about_us_people'),
         APIField('analytics'),
         APIField('clients'),
         APIField('date'),
     ]
     content_panels = Page.content_panels + [
         MultiFieldPanel([
+            FieldPanel('cover_photo'),
             FieldPanel('details'),
             InlinePanel('why_choose_us', label='Why choose us'),
-            InlinePanel('about_us_img', label='People and Position'),
+            InlinePanel('about_us_people', label='People and Position'),
         ], heading='About Us Information')
     ]
 
@@ -73,6 +74,7 @@ class AboutPage(Page):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
+
         context['analytics'] = Analytics.objects.all()
         return context
 
@@ -110,7 +112,7 @@ class People(Orderable):
     page = ParentalKey(
         'AboutPage',
         on_delete=models.CASCADE,
-        related_name='about_us_img',
+        related_name='about_us_people',
     )
     profile = models.ForeignKey(
         'wagtailimages.Image',
