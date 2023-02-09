@@ -28,7 +28,11 @@
 
         }
     }
-    @media only screen and (max-width: 400px) {
+    @media only screen and (max-width: 450px) {
+         .main_content {
+            min-height: calc(100% - 700px); /* 50px is the height of the footer */
+            padding-bottom: 700px; /* give space for the footer */
+         }
          #about_container {
             padding-left: 10%;
             padding-right: 10%;
@@ -38,18 +42,15 @@
             background-size: contain !important;
             height: 200px;
          }
-         .about_cover_section {
-            height: 200px;
+         .about_images_section {
+            height: 100%;
+            margin-bottom: 1rem;
          }
          .col-md {
             height: 200px;
          }
          #about_row-2nd-sec {
             height: 200px;
-        }
-        .custom_container {
-            height: auto;
-            position: relative;
         }
     }
     #prof_img_col {
@@ -63,7 +64,7 @@
 {% endblock %}
 {% block content %}
     <!--About Us!-->
-<div class="custom_container">
+<div class="main_content">
     <section>
         <div id="about_container" class="container-fluid">
             <div class="col-sm text-center">
@@ -76,21 +77,25 @@
             </div>
         </div>
     </section>
-    <section class="about_cover_section">
-        <div class="col-md">
-            <div id="about_row-2nd-sec" class="row">
-                {% image self.cover_photo original as img %}
-                <img id="about_cover" src="{{img.url}}" alt="{{img.alt}}">
-            </div>
-            <div id="about_row_people" class="row">
-                {% for person in self.about_us_people.all %}
-                <div id="prof_img_col" class="col-md-4">
-                    {% image person.profile original as img %}
-                    <img id="prof_img" src="{{img.url}}" alt="{{img.alt}}">
+    <section class="about_images_section">
+            <div class="col-md">
+                <div id="about_row-2nd-sec" class="row">
+                    {% image self.cover_photo original as img %}
+                    <img id="about_cover" src="{{img.url}}" alt="{{img.alt}}">
                 </div>
-                {% endfor %}
+                <div class="carousel-inner">
+                <div id="about_row_people" class="row">
+                    {% for person in self.about_us_people.all %}
+                    <div id="prof_img_col" class="col-md-4">
+                        {% image person.profile original as img %}
+                        <img id="prof_img" src="{{img.url}}" alt="{{img.alt}}">
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </section>
 </div>
+
 {% endblock %}
+
