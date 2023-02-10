@@ -3,7 +3,7 @@ from django.utils.translation import gettext_lazy as _
 from django import forms
 
 # my imports
-from banner.validators import mp4_validate_file_extension
+from banner.validators import *
 
 # Wagtail
 from wagtail.admin.panels import (
@@ -25,35 +25,57 @@ class ServicesPage(Page):
         'home.HomePage',
     ]
     template = 'services/services_page.html'
-    date = models.DateTimeField(auto_now_add=True, null=True)
-    services_page_title = models.CharField(_('Services Page Subtitle'),
-                                           max_length=50,
-                                           null=True,
-                                           blank=False,
-                                           help_text='This is the Services Page. Add new service that you offered.')
 
-    page_description = models.TextField(_('Page Description'),
-                                        max_length=500,
-                                        null=True,
-                                        blank=False,
-                                        help_text='Enter any text to describe your service.')
+    packages = StreamField([
+        ('package_entry', blocks.CharBlock(form_classname="title")),
+    ], use_json_field=True)
 
-    service_profile_image = models.ForeignKey(
+    description = models.TextField(_('Package Description'),
+                                   max_length=200,
+                                   null=True,
+                                   blank=True,
+                                   help_text='Define your package.')
+
+    duration = models.IntegerField(blank=True, null=True,)
+    COLOR_CHOICES = [
+        ('min', 'min'),
+        ('mins', 'mins'),
+        ('hour', 'hour'),
+        ('hours', 'hours'),
+        ('day', 'day'),
+        ('days', 'days'),
+        ('month', 'month'),
+        ('months', 'months'),
+        ('year', 'year'),
+        ('years', 'years'),
+
+    ]
+    unit = models.CharField(_('Time Units'),
+                            max_length=7,
+                            choices=COLOR_CHOICES,
+                            default='hour',
+                            blank=True,
+                            null=True,
+                            )
+    price = models.DecimalField(max_digits=10,
+                                decimal_places=2,
+                                null=True,
+                                blank=True,)
+    show_price_start = models.BooleanField(_('Show Price Start Tag'),
+                                           default=False)
+    remarks = models.TextField(_('Package Remarks'),
+                               max_length=150,
+                               null=True,
+                               blank=True,
+                               help_text='Enter remarks. Ex: Additional services or information.')
+
+    service_image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
         related_name='+'
     )
-
-    service_background_image = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
-
     service_video = models.FileField(_('Service Supporting Video'),
                                      max_length=50,
                                      upload_to='banner_videos',
@@ -71,20 +93,26 @@ class ServicesPage(Page):
 
     search_fields = Page.search_fields + [
         index.SearchField('title'),
-        index.FilterField('date'),
-
-        index.RelatedFields('services_page_title', [
-            index.SearchField('services_page_title'),
-            index.FilterField('date'),
+        index.FilterField('title'),
+        index.RelatedFields('description', [
+            index.SearchField('title'),
+            index.FilterField('title'),
         ]),
+        index.RelatedFields('packages', [
+            index.SearchField('title'),
+            index.FilterField('title'),
+        ])
     ]
 
     api_fields = [
-        APIField('services_page_title'),
-        APIField('page_description'),
-        APIField('date'),
-        APIField('service_profile_image'),
-        APIField('service_background_image'),
+        APIField('title'),
+        APIField('packages'),
+        APIField('duration'),
+        APIField('unit'),
+        APIField('price'),
+        APIField('show_price_start'),
+        APIField('remarks'),
+        APIField('service_image'),
         APIField('service_video'),
         APIField('service_youtube_url'),
         APIField('service_packages'),
@@ -92,59 +120,31 @@ class ServicesPage(Page):
     ]
 
     content_panels = Page.content_panels + [
+        FieldPanel('description'),
+        FieldRowPanel([
+            FieldPanel('duration', classname='Col2'),
+            FieldPanel('unit', classname='Col2'),
+            FieldPanel('price', classname='Col4'),
+            FieldPanel('show_price_start', classname='Col2'),
+        ], heading='Package value setup'),
+        FieldPanel('remarks'),
         MultiFieldPanel([
-            FieldPanel('services_page_title'),
-            FieldPanel('page_description'),
-        ], heading='Page Information'),
-        MultiFieldPanel([
-            FieldPanel('service_profile_image'),
-            FieldPanel('service_background_image'),
+            FieldPanel('service_image'),
             FieldRowPanel([
                 FieldPanel('service_video', classname='Col8'),
                 FieldPanel('service_youtube_url', classname='Col8'),
             ]),
         ], heading='Supporting files'),
-        MultiFieldPanel([
-            InlinePanel('service_packages', label='Packages Offered'),
-        ], heading='Packages Offered'),
+        FieldPanel('packages'),
     ]
+
+    def __str__(self):
+        return self.title
 
     class Meta:
         verbose_name = _('Service Page')
-        verbose_name_plural = _('Services Page')
+        verbose_name_plural = _('Service Pages')
 
-
-class ServicesPackage(Orderable):
-    page = ParentalKey(
-        'ServicesPage',
-        on_delete=models.CASCADE,
-        related_name='service_packages',
-    )
-
-    package_title = models.CharField(_('Package Title'),
-                                     max_length=200,
-                                     null=True,
-                                     blank=False,
-                                     help_text='You are adding a new package. Ex: Wedding Package, Corporate Party '
-                                               'and etc.')
-
-    description = models.TextField(_('Package Description'),
-                                   max_length=200,
-                                   null=True,
-                                   blank=False,
-                                   help_text='You are adding a new package. Ex: Wedding Packages and Corporate Party '
-                                             'Packages to support this service.')
-
-    package_content = StreamField([
-        ('package_entry', blocks.CharBlock(form_classname="title")),
-    ], use_json_field=True)
-
-    panels = [
-        FieldPanel('package_title'),
-        FieldPanel('description'),
-        FieldPanel('package_content'),
-    ]
-
-    class Meta:
-        verbose_name = 'Package Information'
-        verbose_name_plural = 'Packages Information'
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        context['live_page_status'] = ServicesPage.objects.live().exists()

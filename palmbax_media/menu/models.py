@@ -40,6 +40,8 @@ class MenuItem(Orderable):
         blank=True,
         related_name="+",
         on_delete=models.CASCADE,
+        limit_choices_to={'live': True},
+        help_text='Select only a lived or published page',
     )
     open_in_new_tab = models.BooleanField(default=False, blank=True)
 
@@ -82,8 +84,11 @@ class MenuItem(Orderable):
 class Menu(ClusterableModel):
     """The main menu clusterable model"""
 
-    title = models.CharField(max_length=100)
-    slug = AutoSlugField(populate_from="title", editable=True)
+    title = models.CharField(max_length=100,
+                             default='Main-Menu')
+    slug = AutoSlugField(populate_from="title",
+                         editable=True,
+                         default='main-menu')
 
     company_name = models.CharField(_('Company Name'),
                                     max_length=50,

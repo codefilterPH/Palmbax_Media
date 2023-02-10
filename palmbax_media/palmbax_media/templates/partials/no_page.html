@@ -1,0 +1,20 @@
+{% block content %}
+    {% if self.get_children.exists %}
+        {% for child in self.get_children %}
+            {% if not child.live %}
+                <div class="empty_response">
+                    <h1>PAGE EXISTS BUT NOT LIVE</h1>
+                    <p>The page exists but it is not live. Please make it live to view it.</p>
+                    <a href="{{ child.get_edit_url }}" type="button" class="btn btn-primary btn-sm">Edit</a>
+                </div>
+                {% break %}
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <div class="empty_response">
+            <h1>NO LIVE PAGE EXISTS YET</h1>
+            <p>There are no published pages. Once there are you’ll see them here.</p>
+            <a href="/admin/pages/add/about/aboutpage/3/?next=/admin/about-page-admin/" type="button" class="btn btn-primary btn-sm">create</a>
+        </div>
+    {% endif %}
+{% endblock content %}

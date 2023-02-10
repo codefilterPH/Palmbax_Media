@@ -1,9 +1,31 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static wagtailcore_tags wagtailimages_tags %}
 {% block body_class %}template-homepage{% endblock %}
-
-{% block extra_css %}
-{% endblock extra_css %}
-
 {% block content %}
+{% if self.get_children.exists %}
+    {% for item in about_page %}
+    <div class="main_content">
+        {% if not item.details == "" and not item.why_choose_us.all == None %}
+        <section>
+            <div id="about_container" class="container-fluid">
+                <div class="col-sm text-center">
+                    <h1>WHAT WE'RE ALL ABOUT</h1><br>
+                    <div class="row">{{ item.details|richtext }}</div><br><br>
+                    <h4>WHY CHOOSE US</h4><br>
+                    {% for why_choose_text in item.why_choose_us.all %}
+                    <div class="row">{{why_choose_text.text}}</div><br>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+        {% endif %}
+    </div>
+    {% endfor %}
+{% else %}
+    <div class="empty_response">
+        <h1>NO LIVE PAGE EXISTS YET</h1>
+        <p>There are no published pages. Once there are you’ll see them here.</p>
+        <a href="/admin/pages/add/about/aboutpage/3/?next=/admin/about-page-admin/" type="button" class="btn btn-primary btn-sm">create</a>
+    </div>
+{% endif %}
 {% endblock content %}
