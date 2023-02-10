@@ -108,6 +108,7 @@ class WhyChooseUs(Orderable):
         verbose_name = 'WHY CHOOSE US?'
         verbose_name_plural = 'WHY CHOOSE US?'
 
+
 @register_snippet
 class CompanyRole(models.Model):
     role_name = models.CharField(_('Staff or Employee Role Name'),
@@ -123,7 +124,7 @@ class PeoplePage(Page):
     parent_page_types = [
         'about.AboutPage',
     ]
-    template = 'about/about_page.html'
+    template = 'about/people_page.html'
     profile = models.ForeignKey(
         'wagtailimages.Image',
         null=True,

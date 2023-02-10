@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'menu',
     'contact',
     'services',
+    'working_hours',
 
     # thirdparty
     "wagtail.api.v2",

@@ -1,0 +1,26 @@
+{% load static %}
+
+.working-hours {
+  width: 50%;
+  margin: auto;
+  text-align: center;
+}
+
+.working-hours-title {
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+td, th {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #ddd;
+}

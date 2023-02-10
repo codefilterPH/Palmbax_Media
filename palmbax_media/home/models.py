@@ -8,6 +8,7 @@ class HomePage(Page):
 
     subpage_types = [
         'about.AboutPage',
+        'working_hours.WorkingHoursPage',
         'contact.ContactPage',
         'banner.BannerPage',
         'services.ServicesPage'

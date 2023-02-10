@@ -1,0 +1,20 @@
+
+{% extends "base.html" %}
+{% load static wagtailimages_tags %}
+{% load wagtailcore_tags %}
+{% block extra_css %}
+<style>
+    .card {
+        margin-top: 25%;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<div class="container col-md-4">
+        <div class="card"></div>
+        {% image self.profile original as img %}
+        <img id="prof_img" src="{{img.url}}" alt="{{img.alt}}"><br>
+        <h3 class="person_name">{{self.name}}</h3>
+        <p class="person_role">{{self.role}}</p>
+</div>
+{% endblock %}

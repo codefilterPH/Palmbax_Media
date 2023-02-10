@@ -26,7 +26,7 @@
                 {% for person in people %}
                 <div id="prof_img_col" class="col-md-4">
                     {% image person.profile original as img %}
-                    <img id="prof_img" src="{{img.url}}" alt="{{img.alt}}"><br>
+                    <a href="{{ person.url }}" style="width:100%;"><img id="prof_img" src="{{img.url}}" alt="{{img.alt}}"></a><br>
                     <h3 class="person_name">{{person}}</h3>
                     <p class="person_role">{{person.role}}</p>
                 </div>
