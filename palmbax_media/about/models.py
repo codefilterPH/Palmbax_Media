@@ -2,6 +2,7 @@ from django.db import models
 # Tools
 from django.utils.translation import gettext_lazy as _
 from django import forms
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
 # Wagtail
 from wagtail.admin.panels import (
@@ -25,6 +26,7 @@ class AboutPage(Page):
     subpage_types = [
         'contact.ContactPage',
         'contact.BookingPage',
+        'about.PeoplePage',
         'about.AnalyticSettings',
         'about.Clients',
         'about.Testimonials',
@@ -54,7 +56,6 @@ class AboutPage(Page):
         APIField('details'),
         APIField('cover_photo'),
         APIField('why_choose_us'),
-        APIField('about_us_people'),
         APIField('analytics'),
         APIField('clients'),
         APIField('date'),
@@ -64,7 +65,6 @@ class AboutPage(Page):
             FieldPanel('cover_photo'),
             FieldPanel('details'),
             InlinePanel('why_choose_us', label='Why choose us'),
-            InlinePanel('about_us_people', label='People and Position'),
         ], heading='About Us Information')
     ]
 
@@ -75,7 +75,16 @@ class AboutPage(Page):
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
 
-        context['analytics'] = Analytics.objects.all()
+        all_emp = PeoplePage.objects.all()
+        paginator = Paginator(all_emp, 3)
+        page = request.GET.get("page")
+        try:
+            context['people'] = paginator.page(page)
+        except PageNotAnInteger:
+            context['people'] = paginator.page(1)
+        except EmptyPage:
+            context['people'] = paginator.page(paginator.num_pages)
+
         return context
 
 
@@ -99,21 +108,22 @@ class WhyChooseUs(Orderable):
         verbose_name = 'WHY CHOOSE US?'
         verbose_name_plural = 'WHY CHOOSE US?'
 
-
 @register_snippet
 class CompanyRole(models.Model):
-    role_name = models.CharField(max_length=255)
+    role_name = models.CharField(_('Staff or Employee Role Name'),
+                                 max_length=255,
+                                 null=True,
+                                 help_text='Ex: CEO, Manager, Graphic Designer and etc.')
 
     def __str__(self):
         return self.role_name
 
 
-class People(Orderable):
-    page = ParentalKey(
-        'AboutPage',
-        on_delete=models.CASCADE,
-        related_name='about_us_people',
-    )
+class PeoplePage(Page):
+    parent_page_types = [
+        'about.AboutPage',
+    ]
+    template = 'about/about_page.html'
     profile = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -125,23 +135,30 @@ class People(Orderable):
                             null=True,
                             blank=False,
                             help_text='Please enter your reasons.')
-    role = models.ForeignKey(CompanyRole, on_delete=models.CASCADE)
+    role = models.ForeignKey(CompanyRole,
+                             null=True,
+                             on_delete=models.SET_NULL)
 
-    panels = [
+    search_fields = Page.search_fields + [
+        index.SearchField('name'),
+    ]
+
+    api_fields = [
+        APIField('profile'),
+        APIField('name'),
+        APIField('role'),
+    ]
+    content_panels = Page.content_panels + [
         MultiFieldPanel([
             FieldPanel('profile'),
             FieldPanel('name'),
             FieldPanel('role'),
-        ], heading='People'),
-
+        ], heading='Profiles')
     ]
 
     class Meta:
-        verbose_name = 'People and Position'
-        verbose_name_plural = 'People and Position'
-
-    def __str__(self):
-        return self.name
+        verbose_name = 'Staff and Employee'
+        verbose_name_plural = 'Staff\'s and Employees'
 
 
 class Analytics(Page):

@@ -1,0 +1,95 @@
+{% load static %}
+
+#about_container {
+    position: relative;
+    display: flex;
+    padding-left: 27%;
+    padding-right: 27%;
+    margin-top: 15%;
+    height: auto;
+}
+#prof_img_col {
+    position: relative;
+    display: flex;
+    padding-right: unset;
+    padding-left: unset;
+    justify-content: left;
+    align-items: left;
+}
+.person_name {
+    position: absolute;
+    bottom: 15%;
+    font-size: 2rem;
+    color: white;
+    margin-left: 25px;
+}
+.person_role {
+    position: absolute;
+    bottom: 10%;
+    font-size: 1rem;
+    color: white;
+    margin-left: 25px;
+}
+#prof_img {
+    filter: brightness(70%);
+}
+#about_cover {
+    height: 600px;
+}
+@media only screen and (max-width: 600px) {
+    #about_cover {
+        height: 420px;
+    }
+    #prof_img {
+        height: 250px;
+        padding-top: 2rem;
+        padding-left: 30%;
+        padding-right: 30%;
+    }
+    #about_row_people {
+        display: flex;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+
+    }
+}
+@media only screen and (max-width: 500px) {
+     .main_content {
+        min-height: calc(100% - 800px); /* 50px is the height of the footer */
+        padding-bottom: 800px; /* give space for the footer */
+     }
+     #about_container {
+        padding-left: 10%;
+        padding-right: 10%;
+        margin-top: 40%;
+      }
+     #about_cover {
+        background-size: contain !important;
+        height: 200px;
+     }
+     .about_images_section {
+        height: 100%;
+        margin-bottom: 1rem;
+     }
+     .col-md {
+        height: 200px;
+     }
+     #about_row-2nd-sec {
+        height: 200px;
+    }
+    .person_name {
+        position: absolute;
+        bottom: 15%;
+        font-size: .80rem;
+        color: white;
+        margin-left: 32%;
+    }
+    .person_role {
+        position: absolute;
+        bottom: 7%;
+        font-size: .5rem;
+        color: white;
+        margin-left: 32%;
+    }
+}

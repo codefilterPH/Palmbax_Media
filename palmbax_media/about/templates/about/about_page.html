@@ -1,67 +1,6 @@
 {% extends "base.html" %}
 {% load static wagtailimages_tags %}
 {% load wagtailcore_tags %}
-{% block extra_css %}
-<style>
-
-    #about_container {
-        position: relative;
-        display: flex;
-        padding-left: 27%;
-        padding-right: 27%;
-        margin-top: 15%;
-        height: auto;
-    }
-    @media only screen and (max-width: 600px) {
-        #about_cover {
-            height: 420px;
-        }
-        #prof_img {
-            height: 250px;
-            padding-top: 2rem;
-            padding-left: 30%;
-            padding-right: 30%;
-        }
-        #about_row_people {
-            display: flex;
-            position: absolute;
-
-        }
-    }
-    @media only screen and (max-width: 450px) {
-         .main_content {
-            min-height: calc(100% - 700px); /* 50px is the height of the footer */
-            padding-bottom: 700px; /* give space for the footer */
-         }
-         #about_container {
-            padding-left: 10%;
-            padding-right: 10%;
-            margin-top: 40%;
-          }
-         #about_cover {
-            background-size: contain !important;
-            height: 200px;
-         }
-         .about_images_section {
-            height: 100%;
-            margin-bottom: 1rem;
-         }
-         .col-md {
-            height: 200px;
-         }
-         #about_row-2nd-sec {
-            height: 200px;
-        }
-    }
-    #prof_img_col {
-        position: relative;
-        display: flex;
-        padding-right: unset;
-        padding-left: unset;
-    }
-
-</style>
-{% endblock %}
 {% block content %}
     <!--About Us!-->
 <div class="main_content">
@@ -77,21 +16,50 @@
             </div>
         </div>
     </section>
-    <section class="about_images_section">
-            <div class="col-md">
-                <div id="about_row-2nd-sec" class="row">
-                    {% image self.cover_photo original as img %}
-                    <img id="about_cover" src="{{img.url}}" alt="{{img.alt}}">
+    <section class="about_images_section mt-5">
+        <div class="col-md">
+            <div id="about_row-2nd-sec" class="row">
+                {% image self.cover_photo original as img %}
+                <img id="about_cover" src="{{img.url}}" alt="{{img.alt}}">
+            </div>
+            <div id="about_row_people" class="row">
+                {% for person in people %}
+                <div id="prof_img_col" class="col-md-4">
+                    {% image person.profile original as img %}
+                    <img id="prof_img" src="{{img.url}}" alt="{{img.alt}}"><br>
+                    <h3 class="person_name">{{person}}</h3>
+                    <p class="person_role">{{person.role}}</p>
                 </div>
-                <div class="carousel-inner">
-                <div id="about_row_people" class="row">
-                    {% for person in self.about_us_people.all %}
-                    <div id="prof_img_col" class="col-md-4">
-                        {% image person.profile original as img %}
-                        <img id="prof_img" src="{{img.url}}" alt="{{img.alt}}">
-                    </div>
-                    {% endfor %}
-                </div>
+                {% endfor %}
+                {# Only show pagination if there is more than one page to click through #}
+                {% if people.paginator.num_pages > 1 %}
+                  <div class="container my-1">
+                    <nav aria-label="Page navigation">
+                      <ul class="pagination justify-content-center">
+                        {% if people.has_previous %}
+                          <li class="page-item">
+                            <a class="page-link" href="?page={{ people.previous_page_number }}" aria-label="Previous">
+                              <span aria-hidden="true">&laquo;</span>
+                            </a>
+                          </li>
+                        {% endif %}
+                        {% for page_num in people.paginator.page_range %}
+                          <li class="page-item {% if page_num == people.number %} active{% endif %}">
+                            <a class="page-link" href="?page={{ page_num }}">{{ page_num }}</a>
+                          </li>
+                        {% endfor %}
+                        {% if people.has_next %}
+                          <li class="page-item">
+                            <a class="page-link" href="?page={{ people.next_page_number }}" aria-label="Next">
+                              <span aria-hidden="true">&raquo;</span>
+                            </a>
+                          </li>
+                        {% endif %}
+                      </ul>
+                    </nav>
+                  </div>
+                {% endif %}
+
             </div>
         </div>
     </section>
