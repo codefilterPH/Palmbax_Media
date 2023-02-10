@@ -3,8 +3,11 @@
 
 {% block extra_css %}
 <style>
+  i#goto:hover {
+    cursor: pointer;
+  }
   .navbar-brand, .nav-link, a{
-     color: {{ nav.font_color }};
+    color: {{ nav.font_color }};
 
   }
   #company_name {
@@ -59,15 +62,28 @@
         </li>
         {% endfor %}
       </ul>&nbsp;
-      <form class="form-inline my-2 my-lg-0">
+      <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method="get" onsubmit="goTo(); return false;">
         <div class="custom_search_container">&nbsp;
-          <i class="fas fa-search"></i>
-          <input type="search" placeholder="Search" aria-label="Search">
+          <i id="goto" class="fas fa-search"></i>
+          <input id="searchbar" type="text" placeholder="Search" aria-label="Search" {% if search_query %} value="{{ search_query }}"{% endif %}>
         </div>
       </form>
     </div>
 </nav>
 {% block extra_js %}
 <script>
+var result;
+document.getElementById("goto").addEventListener("click", goTo);
+document.getElementById("searchbar").addEventListener("keydown", function (e) {
+  if (e.key === "Enter") {
+    result = document.getElementById("searchbar").value;
+    goTo();
+  }
+});
+
+function goTo() {
+  result = document.getElementById("searchbar").value;
+  window.location.href = '/search/?query='+encodeURIComponent(result);
+}
 </script>
 {% endblock %}

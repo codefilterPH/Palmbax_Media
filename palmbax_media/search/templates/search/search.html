@@ -4,17 +4,52 @@
 {% block body_class %}template-searchresults{% endblock %}
 
 {% block title %}Search{% endblock %}
-
+{% block extra_css %}
+<style>
+    #search_page {
+        list-style: none;
+        padding: 0;
+        padding-top: 8%;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        color: #333;
+    }
+    #search_page li {
+        border-bottom: 1px solid #ddd;
+        padding: 10px;
+    }
+    #search_page li h4 {
+        margin: 0;
+        font-size: 16px;
+        font-weight: bold;
+    }
+    #search_page li a {
+        color: #333;
+        text-decoration: none;
+    }
+    #search_page li a:hover {
+        color: #0077C9;
+    }
+    .my_search_page {
+        max-width: 800px;
+        margin: 20px auto;
+    }
+    .my_search_page a {
+        color: #0077C9;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    .my_search_page a:hover {
+        color: #333;
+    }
+</style>
+{% endblock %}
 {% block content %}
-<h1>Search</h1>
-
-<form action="{% url 'search' %}" method="get">
-    <input type="text" name="query"{% if search_query %} value="{{ search_query }}"{% endif %}>
-    <input type="submit" value="Search" class="button">
-</form>
-
+<h1 style="text-align: center; font-family: Arial, sans-serif; font-size: 24px; font-weight: bold; color: #333;">Search</h1>
+<div class="my_search_page">
 {% if search_results %}
-<ul>
+<ul id="search_page">
     {% for result in search_results %}
     <li>
         <h4><a href="{% pageurl result %}">{{ result }}</a></h4>
@@ -33,6 +68,7 @@
 <a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.next_page_number }}">Next</a>
 {% endif %}
 {% elif search_query %}
-No results found
+<p style="text-align: center; font-family: Arial, sans-serif; font-size: 14px; color: #333; padding-top:8%;">No results found</p>
 {% endif %}
+</div>
 {% endblock %}

@@ -25,7 +25,7 @@
 }
 .person_role {
     position: absolute;
-    bottom: 10%;
+    bottom: 9%;
     font-size: 1rem;
     color: white;
     margin-left: 25px;
@@ -34,7 +34,7 @@
     filter: brightness(70%);
 }
 #about_cover {
-    height: 600px;
+    height: 650px;
 }
 #prof_img {
     height: 500px;
