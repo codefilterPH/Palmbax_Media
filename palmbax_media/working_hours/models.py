@@ -9,6 +9,8 @@ from wagtail.search import index
 
 # wagtail API
 from wagtail.api import APIField
+
+
 # Create your models here.
 
 
@@ -55,3 +57,9 @@ class WorkingHoursPage(Page):
     class Meta:
         verbose_name = 'Opening Hour'
         verbose_name_plural = 'Opening Hours'
+
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        context['opening_hours_status'] = WorkingHoursPage.objects.live().exists()
+        context['data_exists_status'] = WorkingHoursPage.objects.exists()
+        return context

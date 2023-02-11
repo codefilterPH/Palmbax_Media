@@ -8,13 +8,21 @@
     margin-top: 15%;
     height: auto;
 }
+.about_images_section {
+    position: relative;
+    display: flex;
+    height: auto;
+}
 #prof_img_col {
     position: relative;
     display: flex;
     padding-right: unset;
     padding-left: unset;
     justify-content: left;
-    align-items: left;
+}
+#prof_img {
+    height: 500px;
+    width: 100%;
 }
 .person_name {
     position: absolute;
@@ -36,81 +44,47 @@
 #about_cover {
     height: 650px;
 }
-#prof_img {
-    height: 500px;
-    width: 100%;
-}
-@media only screen and (max-width: 600px) {
-    .main_content {
-        min-height: calc(100% - 800px); /* 50px is the height of the footer */
-        padding-bottom: 800px; /* give space for the footer */
-    }
+
+@media only screen and (min-device-width: 501px) and (max-device-width: 1200px) {
     #about_cover {
-        height: 420px;
-    }
-    #prof_img {
-        height: 250px;
-        padding-top: 2rem;
-        padding-left: 30%;
-        padding-right: 30%;
-    }
-    #about_row_people {
-        display: flex;
-        position: absolute;
-        width: 100%;
-        height: 100%;
-    }
-    .person_name {
-        position: absolute;
-        bottom: 15%;
-        font-size: .80rem;
-        color: white;
-        margin-left: 32%;
-    }
-    .person_role {
-        position: absolute;
-        bottom: 7%;
-        font-size: .5rem;
-        color: white;
-        margin-left: 32%;
+        height: 400px;
     }
 }
-@media only screen and (max-width: 500px) {
-     .main_content {
-        min-height: calc(100% - 800px); /* 50px is the height of the footer */
-        padding-bottom: 800px; /* give space for the footer */
-     }
-     #about_container {
+@media only screen and (max-device-width: 500px) {
+    #about_container {
+        position: relative;
+        display: flex;
         padding-left: 10%;
         padding-right: 10%;
         margin-top: 40%;
-      }
-     #about_cover {
-        background-size: contain !important;
+        height: auto;
+    }
+    #about_cover {
         height: 200px;
-     }
-     .about_images_section {
-        height: 100%;
-        margin-bottom: 1rem;
-     }
-     .col-md {
-        height: 200px;
-     }
-     #about_row-2nd-sec {
-        height: 200px;
+    }
+    #about_row_people {
+        height: auto;
+        width: auto;
+    }
+    #prof_img_col {
+        margin-top: 4%;
+        height: auto;
+        padding-right: 20%;
+        padding-left: 20%;
+        width: 100%;
+    }
+    #prof_img {
+        width: 100%;
+        height: 320px;
+        display: flex;
+        position: relative;
     }
     .person_name {
-        position: absolute;
-        bottom: 15%;
-        font-size: .80rem;
-        color: white;
-        margin-left: 32%;
+        font-size: 20px;
     }
     .person_role {
-        position: absolute;
-        bottom: 7%;
-        font-size: .5rem;
-        color: white;
-        margin-left: 32%;
+        margin-bottom: 15px;
+        font-size: 10px;
     }
 }
+

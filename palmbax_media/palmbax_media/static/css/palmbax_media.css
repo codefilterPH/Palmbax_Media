@@ -42,31 +42,3 @@ input {
    justify-content: center;
    padding: 4px;
    width: 100%;
-
-@media only screen and (min-width: 960px) {
-    /* styles for browsers larger than 960px; */
-    .navbar-brand {
-        font-size: 20px;
-        margin-right: 7rem;
-    }
-}
-@media only screen and (max-device-width: 480px) {
-    /* styles for mobile browsers smaller than 480px; (iPhone) */
-    .navbar-brand {
-        font-size: 20px;
-        margin-right: 1rem;
-    }
-    #company_name {
-        font-size: 20px;
-        margin-right: 1rem;
-    }
-}
-@media only screen and (min-device-width: 768px {
-   /* default iPad screens */
-    a {
-        font-size: 20px;
-        margin-right: 7rem;
-    }
-}
-
-

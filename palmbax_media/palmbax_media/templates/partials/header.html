@@ -12,6 +12,7 @@
   }
   #company_name {
     color: {{ nav.font_color }};
+    margin: auto;
 
   }
   .selected {
@@ -50,7 +51,7 @@
     {% if nav.company_logo %}
     {% image nav.company_logo original as img %}
     <img id="comp_logo" id="hide" src="{{img.url}}" href="/" width="30" height="30" class="d-inline-block align-top" alt="">&nbsp;
-    <a id="company_name" class="navbar-brand" href="/" style="margin-right: 7rem;">{{nav.company_name}}</a>
+    <a id="company_name" class="navbar-brand" href="/">{{nav.company_name}}</a>
     {% else %}
     <img src="{% static 'img/logo/codefilter.png' %}" href="/" width="30" height="30" class="d-inline-block align-top" alt="" style="width:30px;">&nbsp;
     <a id class="navbar-brand" href="/" style="margin-right: 7rem; color:black;">NO COMPANY NAME</a>
@@ -61,6 +62,7 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul id="navbar" class="navbar-nav ml-auto">
+         <li class="nav-item"><a class="nav-link" href="/"> Home</a></li>
         {% if nav.menu_items.all %}
         {% for item in nav.menu_items.all %}
         <li class="nav-item"><a class="nav-link" href="{{item.link}}"> {{item.title}}</a></li>

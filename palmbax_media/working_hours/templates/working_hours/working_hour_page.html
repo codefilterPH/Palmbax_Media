@@ -2,38 +2,46 @@
 {% load static wagtailimages_tags %}
 {% load wagtailcore_tags %}
 {% block content %}
-<div class="working-hours pt-5 mt-5">
-  <h1 class="working-hours-title">WORKING HOURS</h1>
-  <h4>Contact us Today</h4>
-  <table class="mt-5">
-    <tr>
-      <td>Monday</td>
-      <td>{{self.monday}}</td>
-    </tr>
-    <tr>
-      <td>Tuesday</td>
-      <td>{{self.tuesday}}</td>
-    </tr>
-    <tr>
-      <td>Wednesday</td>
-      <td>{{self.wednesday}}</td>
-    </tr>
-    <tr>
-      <td>Thursday</td>
-      <td>{{self.thursday}}</td>
-    </tr>
-    <tr>
-      <td>Friday</td>
-      <td>{{self.friday}}</td>
-    </tr>
-    <tr>
-      <td>Saturday</td>
-      <td>{{self.saturday}}</td>
-    </tr>
-    <tr>
-      <td>Sunday</td>
-      <td>{{self.sunday}}</td>
-    </tr>
-  </table>
-</div>
+{% if data_exists_status == True %}
+    {% if opening_hours_status == True %}
+    <div class="working-hours pt-5 mt-5">
+      <h1 class="working-hours-title">WORKING HOURS</h1>
+      <h4>Contact us Today</h4>
+      <table class="mt-5">
+        <tr>
+          <td>Monday</td>
+          <td>{{self.monday}}</td>
+        </tr>
+        <tr>
+          <td>Tuesday</td>
+          <td>{{self.tuesday}}</td>
+        </tr>
+        <tr>
+          <td>Wednesday</td>
+          <td>{{self.wednesday}}</td>
+        </tr>
+        <tr>
+          <td>Thursday</td>
+          <td>{{self.thursday}}</td>
+        </tr>
+        <tr>
+          <td>Friday</td>
+          <td>{{self.friday}}</td>
+        </tr>
+        <tr>
+          <td>Saturday</td>
+          <td>{{self.saturday}}</td>
+        </tr>
+        <tr>
+          <td>Sunday</td>
+          <td>{{self.sunday}}</td>
+        </tr>
+      </table>
+    </div>
+    {% else %}
+      {% include 'partials/no_page.html' %}
+    {% endif %}
+{% else %}
+   {% include 'partials/empty_model.html' %}
+{% endif %}
 {% endblock %}

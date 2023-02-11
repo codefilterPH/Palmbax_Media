@@ -2,7 +2,10 @@
 {% load static wagtailimages_tags %}
 {% load wagtailcore_tags %}
 {% block content %}
+{% if live_page_status %}
 <div class="detail_main">
-
 </div>
+{% else %}
+    {% include 'partials/no_page.html' %}
+{% endif %}
 {% endblock %}
