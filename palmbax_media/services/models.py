@@ -20,11 +20,33 @@ from wagtail.fields import StreamField
 from wagtail.api import APIField
 
 
-class ServicesPage(Page):
+class ServicePage(Page):
+    max_count = 1
     parent_page_types = [
         'home.HomePage',
     ]
-    template = 'services/services_page.html'
+    subpage_types = [
+        'services.ServiceDetailPage',
+    ]
+    template = 'services/service_page.html'
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = _('Service Page')
+        verbose_name_plural = _('Service Pages')
+
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        context['live_page_status'] = ServiceDetailPage.objects.live().exists()
+
+
+class ServiceDetailPage(Page):
+    parent_page_types = [
+        'services.ServicePage',
+    ]
+    template = 'services/service_page.html'
 
     packages = StreamField([
         ('package_entry', blocks.CharBlock(form_classname="title")),
@@ -122,11 +144,13 @@ class ServicesPage(Page):
     content_panels = Page.content_panels + [
         FieldPanel('description'),
         FieldRowPanel([
-            FieldPanel('duration', classname='Col2'),
-            FieldPanel('unit', classname='Col2'),
+            FieldPanel('duration', classname='Col4'),
+            FieldPanel('unit', classname='Col4'),
+        ]),
+        FieldRowPanel([
             FieldPanel('price', classname='Col4'),
-            FieldPanel('show_price_start', classname='Col2'),
-        ], heading='Package value setup'),
+            FieldPanel('show_price_start', classname='Col4'),
+        ]),
         FieldPanel('remarks'),
         MultiFieldPanel([
             FieldPanel('service_image'),
@@ -142,9 +166,6 @@ class ServicesPage(Page):
         return self.title
 
     class Meta:
-        verbose_name = _('Service Page')
-        verbose_name_plural = _('Service Pages')
+        verbose_name = _('Service Detail Page')
+        verbose_name_plural = _('Service Detail Page')
 
-    def get_context(self, request, *args, **kwargs):
-        context = super().get_context(request, *args, **kwargs)
-        context['live_page_status'] = ServicesPage.objects.live().exists()

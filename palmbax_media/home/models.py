@@ -14,7 +14,7 @@ class HomePage(Page):
         'working_hours.WorkingHoursPage',
         'contact.ContactPage',
         'banner.BannerPage',
-        'services.ServicesPage'
+        'services.ServicePage',
     ]
 
     def __str__(self):
