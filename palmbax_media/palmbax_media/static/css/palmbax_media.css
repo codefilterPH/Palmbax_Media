@@ -1,6 +1,9 @@
+{% load menu_tags %}
+{% get_menu "main-menu" as nav %}
 body {
     height: 100%;
     margin: 0;
+    font-family: {{ nav.font }}
 }
 img {
     width: 100%;
@@ -13,6 +16,7 @@ nav, a {
 .navbar {
     display: inline-flex;
     padding: 5px;
+    margin: auto;
     width: 100%;
     flex-wrap: wrap;
 }

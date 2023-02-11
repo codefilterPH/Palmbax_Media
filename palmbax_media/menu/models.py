@@ -135,8 +135,12 @@ class Menu(ClusterableModel):
 
     COLOR_CHOICES = [
         ('#ffffff', 'light'),
+        ('#007bff', 'blue'),
+        ('#37a1fe', 'sky blue'),
+        ('#4caf50', 'green'),
+        ('#7f00ff', 'purple'),
         ('#3c3c3c', 'dark'),
-        ('#37a1fe', 'blue'),
+        ('#000000', 'black'),
     ]
 
     bg_color = models.CharField(_('Background Color'),
@@ -150,7 +154,16 @@ class Menu(ClusterableModel):
                                   choices=COLOR_CHOICES,
                                   default='#3c3c3c',
                                   )
+    FONT_CHOICES = [
+        ('\'Sofia Sans\', sans-serif', 'Sofia Sans'),
+        ('\'Open Sans\', sans-serif', 'Open Sans'),
+    ]
 
+    font = models.CharField(_('Font Color'),
+                            max_length=50,
+                            choices=FONT_CHOICES,
+                            default='\'Sofia Sans\', sans-serif',
+                            )
     # slug = models.SlugField()
 
     api_fields = [
@@ -168,6 +181,7 @@ class Menu(ClusterableModel):
             FieldRowPanel([
                 FieldPanel('font_color', classname='Col2'),
                 FieldPanel('bg_color', classname='Col2'),
+                FieldPanel('font', classname='Col4'),
             ]),
         ], heading='Theme'),
         MultiFieldPanel([

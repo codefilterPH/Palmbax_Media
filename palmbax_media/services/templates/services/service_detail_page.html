@@ -1,9 +1,46 @@
 {% extends "base.html" %}
-{% load static wagtailimages_tags %}
-{% load wagtailcore_tags %}
+{% load static wagtailimages_tags wagtailcore_tags menu_tags %}
+{% load custom_filters %}
 {% block content %}
-{% if live_page_status %}
-<div class="detail_main">
+{% if live_service_detail_status == True %}
+<div class="container-fluid pt-5">
+    <div class="detail-main">
+        <div class="card card-header">
+            {% image self.service_image original as img %}
+            <a href="{{img.url}}"><img id="my_img" src="{{img.url}}" alt="{{img.alt}}"></a>
+        </div>
+        <div class="card card-body">
+            <h4 class="service_title">{{ self.title}}</h4>
+            <hr>
+            <div class="row text-left">{{ self.duration }} {{ self.unit }}</div>
+            <div class="row text-left">&#8369; {{ self.price|add_thousand_separator  }}</div><br>
+            {% for block in self.packages %}
+                {% if block.block_type == 'package_entry' %}
+                    <div class="row my_row">- {{ block.value }}</div>
+                {% endif %}
+            {% endfor %}
+            <br><hr>
+            {% get_menu "main-menu" as nav %}
+            {% if nav %}
+            <div class="row text-left"><h6>CONTACT US</h6></div>
+            <div class="contact_info">
+                <div class="row text-left">{{ nav.company_name }}</div>
+                <div class="row text-left">{% if nav.phone %} + 63 {% endif %} {{nav.phone}}</div>
+                <div class="row text-left">{{ nav.email }}</div>
+                <div class="row text-left">{{ nav.address }}</div>
+            </div>
+            <div class="row mt-5 justify-content-center">
+                <button type="button" class="btn btn-md" style="background-color: {{nav.bg_color}}; color: {{nav.font_color}};">Book now</button>
+            </div>
+            {% else %}
+            <div class="row mt-5 justify-content-center">
+                <button type="button" class="btn btn-md btn-primary">Book now</button>
+            </div>
+            {% endif %}
+
+
+        </div>
+    </div>
 </div>
 {% else %}
     {% include 'partials/no_page.html' %}

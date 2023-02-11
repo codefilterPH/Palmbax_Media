@@ -2,7 +2,6 @@
 {% get_menu "main-menu" as nav %}
 {% block extra_css %}
 <style>
-
   footer {
     background-color: {{ nav.bg_color }};
     color: {{ nav.font_color }};
@@ -10,6 +9,7 @@
     position: absolute;
     bottom: 1;
     width: 100%;
+    font-family: {{ nav.font }};
   }
   i {
     {% if nav.font_color %}
@@ -124,8 +124,8 @@
             {{nav.address}}
           </p>
           <p><i class="fas fa-envelope me-3"></i> {{nav.email}}</p>
-          <p><i class="fas fa-phone me-3"></i> + 63 {{nav.phone}}</p>
-          <p><i class="fas fa-print me-3"></i> + {{nav.telephone}}</p>
+          <p><i class="fas fa-phone me-3"></i>{% if nav.phone %} + 63 {% endif %} {{nav.phone}}</p>
+          <p><i class="fas fa-print me-3"></i> {% if nav.telephone %} + {% endif %} {{nav.telephone}}</p>
           {% else %}
           <p id="footer_info_box"><a href="/admin/menu-settings/create/">Add Contact Information</a></p>
           {% endif %}

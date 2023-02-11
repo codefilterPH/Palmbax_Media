@@ -4,14 +4,18 @@
 {% block content %}
     <!--About Us!-->
 {% if live_page_status == True %}
-<div class="main_content">
-
+<div class="container-fluid pt-5">
+    <div class="detail-main">
+        {% for item in service_data %}
+            {{ item }}
+        {% endfor %}
+    </div>
 </div>
 {% else %}
 <div class="empty_response">
-    <h1>NO PAGE EXISTS YET</h1>
+    <h1>NO SERVICES PAGE EXISTS YET</h1>
     <p>There are no published pages at the moment. Once there are you’ll see them here.</p>
-    <a href="/admin/services-page-list/" type="button" class="btn btn-primary btn-sm">create</a>
+    <a href="/admin/" type="button" class="btn btn-primary btn-sm">create</a>
 </div>
 {% endif %}
 {% endblock %}

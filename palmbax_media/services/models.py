@@ -40,13 +40,16 @@ class ServicePage(Page):
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         context['live_page_status'] = ServiceDetailPage.objects.live().exists()
+        context['service_data'] = ServiceDetailPage.objects.live()
+
+        return context
 
 
 class ServiceDetailPage(Page):
     parent_page_types = [
         'services.ServicePage',
     ]
-    template = 'services/service_page.html'
+    template = 'services/service_detail_page.html'
 
     packages = StreamField([
         ('package_entry', blocks.CharBlock(form_classname="title")),
@@ -61,15 +64,15 @@ class ServiceDetailPage(Page):
     duration = models.IntegerField(blank=True, null=True,)
     COLOR_CHOICES = [
         ('min', 'min'),
-        ('mins', 'mins'),
-        ('hour', 'hour'),
-        ('hours', 'hours'),
-        ('day', 'day'),
-        ('days', 'days'),
-        ('month', 'month'),
-        ('months', 'months'),
-        ('year', 'year'),
-        ('years', 'years'),
+        ('m\'s', 'mins'),
+        ('hr', 'hour'),
+        ('hr\'s', 'hours'),
+        ('d', 'day'),
+        ('d\'s', 'days'),
+        ('m', 'month'),
+        ('mos', 'months'),
+        ('yr', 'year'),
+        ('yr\'s', 'years'),
 
     ]
     unit = models.CharField(_('Time Units'),
@@ -82,7 +85,8 @@ class ServiceDetailPage(Page):
     price = models.DecimalField(max_digits=10,
                                 decimal_places=2,
                                 null=True,
-                                blank=True,)
+                                blank=True,
+                                )
     show_price_start = models.BooleanField(_('Show Price Start Tag'),
                                            default=False)
     remarks = models.TextField(_('Package Remarks'),
@@ -96,7 +100,8 @@ class ServiceDetailPage(Page):
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+'
+        related_name='+',
+        help_text='Best if image size is 250px height.'
     )
     service_video = models.FileField(_('Service Supporting Video'),
                                      max_length=50,
@@ -166,6 +171,11 @@ class ServiceDetailPage(Page):
         return self.title
 
     class Meta:
-        verbose_name = _('Service Detail Page')
-        verbose_name_plural = _('Service Detail Page')
+        verbose_name = _('All Services Offered')
+        verbose_name_plural = _('All Services Offered')
 
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        context['live_service_detail_status'] = ServiceDetailPage.objects.live().exists()
+
+        return context

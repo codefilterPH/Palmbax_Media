@@ -1,12 +1,18 @@
 {% extends "base.html" %}
-{% load static wagtailcore_tags wagtailimages_tags %}
+{% load static wagtailcore_tags wagtailimages_tags menu_tags %}
 {% block body_class %}template-homepage{% endblock %}
+{% block extra_css %}
+{% get_menu "main-menu" as nav %}
+.my_font {
+    font-family: {{ nav.font }};
+}
+{% endblock %}
 {% block content %}
 {% if self.get_children.exists %}
     <!-- About Page -->
     {% if about_page_status == True %}
         {% for item in about_page %}
-        <div class="" style="">
+        <div class="my_font" style="">
             {% if not item.details == "" and not item.why_choose_us.all == None %}
             <section>
                 <div id="about_container" class="container-fluid">
