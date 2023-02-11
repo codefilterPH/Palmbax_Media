@@ -4,17 +4,19 @@
 {% load wagtailcore_tags %}
 {% block extra_css %}
 <style>
-    .card {
+    .my_box2 {
         margin-top: 25%;
     }
 </style>
 {% endblock %}
 {% block content %}
-<div class="container col-md-4">
-        <div class="card"></div>
-        {% image self.profile original as img %}
-        <img id="prof_img" src="{{img.url}}" alt="{{img.alt}}"><br>
-        <h3 class="person_name">{{self.name}}</h3>
-        <p class="person_role">{{self.role}}</p>
-</div>
+<body>
+        <div class="container col-md-4">
+                <div class="my_box2"></div>
+                {% image self.profile original as img %}
+                <img id="prof_img" src="{{img.url}}" alt="{{img.alt}}"><br>
+                <h3 class="person_name">{{self.name}}</h3>
+                <p class="person_role">{{self.role}}</p>
+        </div>
+</bodY>
 {% endblock %}

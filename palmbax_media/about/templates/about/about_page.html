@@ -1,6 +1,11 @@
 {% extends "base.html" %}
-{% load static wagtailimages_tags %}
+{% load static wagtailimages_tags menu_tags %}
 {% load wagtailcore_tags %}
+{% get_menu "main-menu" as nav %}
+{% block extra_css %}
+<style>
+</style>
+{% endblock %}
 {% block content %}
 <!--About Us!-->
 {% if live_page_status == True %}

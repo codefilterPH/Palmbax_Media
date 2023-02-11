@@ -3,11 +3,15 @@
 
 {% block extra_css %}
 <style>
+  body {
+    font-family: {{nav.font}};
+  }
   i#goto:hover {
     cursor: pointer;
   }
   .navbar-brand, .nav-link, a{
     color: {{ nav.font_color }};
+    font-family: {{ nav.font }}
 
   }
   #company_name {

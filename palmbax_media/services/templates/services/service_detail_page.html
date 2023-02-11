@@ -12,13 +12,14 @@
         <div class="card card-body">
             <h4 class="service_title">{{ self.title}}</h4>
             <hr>
-            <div class="row text-left">{{ self.duration }} {{ self.unit }}</div>
-            <div class="row text-left">&#8369; {{ self.price|add_thousand_separator  }}</div><br>
+            <div class="row text-left contact_info">{{ self.duration }} {{ self.unit }}</div>
+            <div class="row text-left contact_info">&#8369; {{ self.price|add_thousand_separator  }}</div><br>
             {% for block in self.packages %}
                 {% if block.block_type == 'package_entry' %}
                     <div class="row my_row">- {{ block.value }}</div>
                 {% endif %}
-            {% endfor %}
+            {% endfor %}<br>
+            <div class="row text-left contact_info">Additional Information:<span>{{ self.remarks }}</span></div>
             <br><hr>
             {% get_menu "main-menu" as nav %}
             {% if nav %}

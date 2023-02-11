@@ -157,6 +157,8 @@ class Menu(ClusterableModel):
     FONT_CHOICES = [
         ('\'Sofia Sans\', sans-serif', 'Sofia Sans'),
         ('\'Open Sans\', sans-serif', 'Open Sans'),
+        ('\'Quicksand\', sans-serif', 'Quicksand'),
+        ('none','None'),
     ]
 
     font = models.CharField(_('Font Color'),

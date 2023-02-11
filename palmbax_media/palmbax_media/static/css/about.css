@@ -1,5 +1,4 @@
 {% load static %}
-
 #about_container {
     position: relative;
     display: flex;
@@ -29,6 +28,7 @@
     bottom: 15%;
     font-size: 2rem;
     color: white;
+    /* flex-wrap: wrap; */
     margin-left: 25px;
 }
 .person_role {
@@ -80,7 +80,7 @@
         position: relative;
     }
     .person_name {
-        font-size: 20px;
+        font-size: 15px;
     }
     .person_role {
         margin-bottom: 15px;

@@ -1,9 +1,10 @@
-{% load menu_tags %}
+{% load static wagtailcore_tags wagtailimages_tags menu_tags %}
 {% get_menu "main-menu" as nav %}
 body {
     height: 100%;
     margin: 0;
     font-family: {{ nav.font }}
+
 }
 img {
     width: 100%;
