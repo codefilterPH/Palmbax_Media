@@ -26,7 +26,8 @@ class HomePage(Page):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
-        context['about_page'] = AboutPage.objects.live()
         context['live_page_status'] = AboutPage.objects.live().exists()
-
+        context['about_page'] = AboutPage.objects.live()
+        context['people_live_status'] = PeoplePage.objects.live().exists()
+        context['people'] = PeoplePage.objects.live()
         return context

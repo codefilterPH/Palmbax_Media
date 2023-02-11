@@ -75,8 +75,8 @@ class AboutPage(Page):
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         context['live_page_status'] = AboutPage.objects.live().exists()
-
-        all_emp = PeoplePage.objects.all()
+        context['live_people_status'] = PeoplePage.objects.live().exists()
+        all_emp = PeoplePage.objects.live()
         paginator = Paginator(all_emp, 3)
         page = request.GET.get("page")
         try:

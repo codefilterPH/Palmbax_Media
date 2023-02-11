@@ -19,6 +19,58 @@
             </div>
         </section>
         {% endif %}
+        {% if item.cover_photo and people_live_status == True %}
+        <section class="about_images_section mt-5">
+            <div class="col-md">
+                {% if item.cover_photo %}
+                <div id="about_row-2nd-sec" class="row">
+                    {% image item.cover_photo original as img %}
+                    <img id="about_cover" src="{{img.url}}" alt="{{img.alt}}">
+                </div>
+                {% endif %}
+                {% if people %}
+                <div id="about_row_people" class="row">
+                    {% for person in people %}
+                    <div id="prof_img_col" class="col-md-4">
+                        {% image person.profile original as img %}
+                        <a href="{{ person.url }}" style="width:100%;"><img id="prof_img" src="{{img.url}}" alt="{{img.alt}}"></a><br>
+                        <h3 class="person_name">{{person}}</h3>
+                        <p class="person_role">{{person.role}}</p>
+                    </div>
+                    {% endfor %}
+                    {# Only show pagination if there is more than one page to click through #}
+                    {% if people.paginator.num_pages > 1 %}
+                      <div class="container my-1">
+                        <nav aria-label="Page navigation">
+                          <ul class="pagination justify-content-center">
+                            {% if people.has_previous %}
+                              <li class="page-item">
+                                <a class="page-link" href="?page={{ people.previous_page_number }}" aria-label="Previous">
+                                  <span aria-hidden="true">&laquo;</span>
+                                </a>
+                              </li>
+                            {% endif %}
+                            {% for page_num in people.paginator.page_range %}
+                              <li class="page-item {% if page_num == people.number %} active{% endif %}">
+                                <a class="page-link" href="?page={{ page_num }}">{{ page_num }}</a>
+                              </li>
+                            {% endfor %}
+                            {% if people.has_next %}
+                              <li class="page-item">
+                                <a class="page-link" href="?page={{ people.next_page_number }}" aria-label="Next">
+                                  <span aria-hidden="true">&raquo;</span>
+                                </a>
+                              </li>
+                            {% endif %}
+                          </ul>
+                        </nav>
+                      </div>
+                    {% endif %}
+                </div>
+               {% endif %}
+            </div>
+        </section>
+        {% endif %}
     </div>
     {% endfor %}
 {% else %}

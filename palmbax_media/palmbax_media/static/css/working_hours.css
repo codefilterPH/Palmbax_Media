@@ -1,7 +1,7 @@
 {% load static %}
 
 .working-hours {
-  width: 50%;
+  width: 25%;
   margin: auto;
   text-align: center;
 }
@@ -18,9 +18,32 @@ table {
 
 td, th {
   padding: 8px;
-  text-align: left;
+  text-align: center;
 }
 
 th {
   background-color: #ddd;
+}
+
+@media only screen and (max-device-width: 500px) {
+    .working-hours {
+      width: 80%;
+      margin: auto;
+      text-align: center;
+    }
+    .working-hours-title {
+      margin-top: 20px;
+      font-size: 30px;
+    }
+}
+@media only screen and (min-device-width: 500px) and (max-device-width: 1200px) {
+    .working-hours {
+      width: 50%;
+      margin: auto;
+      text-align: center;
+    }
+    .working-hours-title {
+      margin-top: 20px;
+      font-size: 30px;
+    }
 }

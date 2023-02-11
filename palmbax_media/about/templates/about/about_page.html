@@ -13,7 +13,7 @@
                 <div class="col-sm text-center">
                     {% if self.details %}
                     <h1>WHAT WE'RE ALL ABOUT</h1><br>
-                    <div class="row">{{ self.details|richtext }}</div><br><br>
+                    <div class="row text-center">{{ self.details|richtext }}</div><br><br>
                     {% endif %}
                     {% if self.why_choose_us.all %}
                     <h4>WHY CHOOSE US</h4><br>
@@ -32,6 +32,7 @@
                     <img id="about_cover" src="{{img.url}}" alt="{{img.alt}}">
                     {% endif %}
                 </div>
+                {% if live_people_status == True %}
                 <div id="about_row_people" class="row">
                     {% if people %}
                     {% for person in people %}
@@ -72,6 +73,7 @@
                     {% endif %}
                     {% endif %}
                 </div>
+                {% endif %}
             </div>
         </section>
     </div>
