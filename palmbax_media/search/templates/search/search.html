@@ -52,6 +52,8 @@
 <ul id="search_page">
     {% for result in search_results %}
     <li>
+        <h1>Search Results...</h1>
+        <hr><br>
         <h4><a href="{% pageurl result %}">{{ result }}</a></h4>
         {% if result.search_description %}
         {{ result.search_description }}

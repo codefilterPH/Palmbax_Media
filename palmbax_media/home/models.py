@@ -5,6 +5,8 @@ from about.models import *
 from services.models import *
 from working_hours.models import *
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from contact.models import *
+from menu.models import *
 
 
 class HomePage(Page):
@@ -53,4 +55,32 @@ class HomePage(Page):
 
         context['opening_hours_status'] = WorkingHoursPage.objects.live().exists()
         context['opening_hours'] = WorkingHoursPage.objects.live()
+        # Contact Page
+        context['contact_page_status'] = ContactPage.objects.live().exists()
+        context['contact_page'] = ContactPage.objects.live().first()
+        address = Menu.objects.values_list('address', flat=True).first()
+
+        # If address is not None, get the location information
+        if address is not None:
+            geolocator = Nominatim(user_agent="Corporate Website")
+            location = geolocator.geocode(address)
+
+            # Generate map
+            try:
+                latitude = location.latitude
+                longitude = location.longitude
+                my_map = folium.Map(location=[latitude, longitude],
+                                    tiles='openstreetmap',
+                                    zoom_start=15,
+                                    control_scale=True)
+                folium.Marker([latitude, longitude],
+                              tooltip=address,
+                              popup=f'<p id="latlon">{latitude}, {longitude}</p>').add_to(my_map)
+                my_map.add_child(folium.LatLngPopup())
+                # Add map and contact data to context
+                context['my_map'] = my_map._repr_html_()
+                context['address'] = address
+            except:
+                context['address'] = address + 'Return a status of \"Invalid address or not found!\" try changing it.'
+
         return context

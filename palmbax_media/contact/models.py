@@ -58,6 +58,10 @@ class ContactPage(AbstractEmailForm):
         ], heading="Contact Page Form"),
     ]
 
+    search_fields = Page.search_fields + [
+        index.SearchField('title'),
+    ]
+
     class Meta:
         verbose_name = _('Contact Page')
         verbose_name_plural = _('Contact Page')
@@ -87,10 +91,10 @@ class ContactPage(AbstractEmailForm):
                 my_map.add_child(folium.LatLngPopup())
                 # Add map and contact data to context
                 context['my_map'] = my_map._repr_html_()
-                context['contact_data'] = ContactPage.objects.all()
+                context['contact_page_status'] = ContactPage.objects.live().exists()
                 context['address'] = address
             except:
-                context['contact_data'] = ContactPage.objects.all()
+                context['contact_page_status'] = ContactPage.objects.live().exists()
                 context['address'] = address + 'Return a status of \"Invalid address or not found!\" try changing it.'
 
         return context

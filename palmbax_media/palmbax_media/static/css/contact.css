@@ -1,0 +1,70 @@
+{% load static %}
+
+#contact_page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+.my-css-class{
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+}
+iframe {
+    height: 200px;
+    width: 100%;
+}
+h1 {
+    display: flex;
+    color: black;
+}
+#form_fields {
+    list-style: none;
+    padding: 0;
+
+    margin-right: 10%;
+    margin-left: 10%;
+    justify-content-center;
+    visibility: visible;
+}
+#form_fields li {
+    margin-bottom: 10px;
+    visibility: visible;
+}
+label {
+    display: flex;
+    margin-bottom: 5px;
+    font-weight: bold;
+    visibility: visible;
+}
+input[type="text"] {
+    width: 100%;
+    height: 2.25rem;
+    visibility: visible;
+}
+input[type="email"] {
+    width: 100%;
+    height: 2.25rem;
+    visibility: visible;
+}
+input[type="number"] {
+    width: 100%;
+    height: 2.25rem;
+    visibility: visible;
+}
+#id_message {
+    width: 100%;
+}
+#Mybutton {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+.help_textven
+    opacity: 0.3;
+}

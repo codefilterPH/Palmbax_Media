@@ -5,6 +5,9 @@ body {
     margin: 0;
     font-family: {{ nav.font }}
 }
+.input {
+    visibility: visible;
+}
 img {
     width: 100%;
     position: relative;

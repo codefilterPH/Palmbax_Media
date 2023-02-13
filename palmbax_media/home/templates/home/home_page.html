@@ -173,9 +173,8 @@
     <!-- Opening Hours -->
     {% if opening_hours_status == True %}
      <section>
-        <div class="working-hours pt-5 mt-5">
+        <div class="working-hours pt-5 mt-5 text-center justify-content-center">
           <h1 class="working-hours-title">WORKING HOURS</h1>
-          <h4>Contact us Today</h4>
           <table class="mt-5">
           {% for item in opening_hours %}
             <tr>
@@ -210,6 +209,27 @@
           </table>
         </div>
      </section>
+    {% endif %}
+    {% if contact_page_status == True %}
+    <section>
+        <div id="contact_page" class="container-fluid justify-content-center align-items-center w-100">
+            <div class="col-lg-8">
+                <div class="card-body h-100 w-100">
+                    <div class="row w-100 justify-content-center align-items-center m-1 pt-4 pb-4 w-100">
+                         <h1 class="text-center">CONTACT US TODAY</h1>
+                    </div>
+                    <div class="row text-center justify-content-center align-items-center pt-3">
+                        {% include 'contact/contact_form.html' with page=contact_page %}
+                    </div>
+                </div>
+                <br><hr><br>
+                <div class="row w-100 justify-content-center align-items-center pt-3 pb-3"><h5>{{ address }}</h5></div>
+                <div class="row height-auto">
+                    <div class="my-css-class">{{ my_map|safe }}</div>
+                </div>
+            </div>
+        </div>
+    </section>
     {% endif %}
 {% else %}
     <div class="empty_response">

@@ -1,13 +1,18 @@
 {% load static %}
 
 .working-hours {
-  width: 25%;
+  width: 30%;
   margin: auto;
   text-align: center;
 }
-
+h1 {
+  text-align: center;
+  justify-content: center;
+}
 .working-hours-title {
   margin-bottom: 20px;
+  text-align: center;
+  justify-content: center;
 }
 
 table {
@@ -28,9 +33,6 @@ th {
 @media only screen and (max-device-width: 499px) {
     .working-hours {
       width: 80%;
-      /* margin-top: 10%; */
-      /* display: flex; */
-      /* position: absolute; */
       height: 100%;
       margin: auto;
       text-align: center;
@@ -38,6 +40,8 @@ th {
     .working-hours-title {
       margin-top: 20px;
       font-size: 30px;
+      justify-content: center;
+      text-align: center;
     }
 }
 @media only screen and (min-device-width: 500px) and (max-device-width: 1200px) {
@@ -49,5 +53,7 @@ th {
     .working-hours-title {
       margin-top: 20px;
       font-size: 30px;
+      justify-content: center;
+      text-align: center;
     }
 }
