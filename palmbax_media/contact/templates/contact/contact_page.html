@@ -1,54 +1,92 @@
 {% extends "base.html" %}
 {% load static wagtailcore_tags wagtailimages_tags menu_tags %}
-{% get_menu "main-menu" as theme %}
+{% get_menu "main-menu" as nav %}
 {% block extra_css %}
 <style>
     #contact_page {
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin-top: 150px;
-        margin-bottom: 160px;
+        margin-top: 5%;
+        margin-bottom: 5%;
     }
     .my-css-class{
-        height: 340px;
         width: 100%;
         text-align: center;
         justify-content: center;
-
+        display: flex;
+    }
+    iframe {
+        height: 200px;
+        width: 100%;
     }
     h1 {
         display: flex;
         color: black;
     }
-    #Mybutton {
-        background-color: {{theme.bg_color}};
-        color: {{theme.font_color}};
-        align-items: center;
-        justify-content: center;
+    #form_fields {
+        list-style: none;
+        padding: 0;
+        margin-right: 10%;
+        margin-left: 10%;
+        justify-content-center;
     }
+    #form_fields li {
+        margin-bottom: 10px;
+    }
+    label {
+        display: flex;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+    input[type="text"] {
+        width: 100%;
+        height: 2.25rem;
+    }
+    input[type="email"] {
+        width: 100%;
+        height: 2.25rem;
+    }
+    input[type="number"] {
+        width: 100%;
+        height: 2.25rem;
+    }
+    #id_message {
+        width: 100%;
+    }
+    #Mybutton {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    .help_text {
+        opacity: 0.3;
+    }
+
 </style>
 {% endblock %}
 {% block content %}
-<div id="contact_page" class="container-fluid">
-    <div class="col-sm-2"></div>
+<div id="contact_page" class="container-fluid justify-content-center align-items-center w-100">
     <div class="col-lg-8">
-        <div class="row">
-             <h1>Contact Page</h1>
+        <div class="card-body h-100 w-100">
+            <div class="row w-100 justify-content-center align-items-center p-4">
+                 <h1 class="text-center">Contact Us</h1>
+            </div>
+            <div class="row text-center justify-content-center align-items-center pt-3">
+                <form class="justify-content-center align-items-center" action="{% pageurl page %}" method="POST">{% csrf_token %}
+                    <ul id="form_fields">{{ form.as_p }}</ul>
+                    <button class="btn btn-md btn-dark" id="Mybutton" type="Submit" style="color: white;">Submit Form</button>
+                </form>
+            </div>
         </div>
-        <div class="row">
-            <form action="{% pageurl page %}" method="POST">{% csrf_token %}
-                <ul>{{ form.as_p }}</ul>
-                <button id="Mybutton" type="submit">Submit Form</button>
-            </form>
-        </div>
-        <div class="row">
-            <div class="my-css-class">{{my_map|safe}}</div>
+        <br><hr><br>
+        <div class="row w-100 justify-content-center align-items-center pt-3 pb-3"><h5>{{ address }}</h5></div>
+        <div class="row height-auto">
+            <div class="my-css-class">{{ my_map|safe }}</div>
         </div>
     </div>
-    <div class="col-sm-2"></div>
-
-
 </div>
 
 {% endblock %}

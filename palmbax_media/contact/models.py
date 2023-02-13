@@ -22,7 +22,8 @@ from menu.models import *
 
 # third party
 import folium
-import geocoder
+import geopy
+from geopy.geocoders import Nominatim
 
 
 class ContactFormField(AbstractFormField):
@@ -62,27 +63,35 @@ class ContactPage(AbstractEmailForm):
         verbose_name_plural = _('Contact Page')
 
     def get_context(self, request, *args, **kwargs):
-        address = Menu.objects.values_list('address')
-
-        location = geocoder.osm(address)
-        latitude = location.lat
-        longitude = location.lng
-        country = location.country
-
-        # generate map
-        my_map = folium.Map(location=[latitude, longitude],
-                            tiles='openstreetmap',
-                            zoom_start=15,
-                            control_scale=True)
-        folium.Marker([latitude, longitude],
-                      tooltip=country,
-                      popup=f'<p id="latlon">{latitude}, {longitude}</p>', ).add_to(my_map)
-        my_map.add_child(folium.LatLngPopup())
-
         context = super().get_context(request, *args, **kwargs)
-        # Get representation of map objects
-        context['my_map'] = my_map._repr_html_()
-        context['contact_data'] = ContactPage.objects.all()
+
+        # Retrieve address value from database
+        address = Menu.objects.values_list('address', flat=True).first()
+
+        # If address is not None, get the location information
+        if address is not None:
+            geolocator = Nominatim(user_agent="Corporate Website")
+            location = geolocator.geocode(address)
+
+            # Generate map
+            try:
+                latitude = location.latitude
+                longitude = location.longitude
+                my_map = folium.Map(location=[latitude, longitude],
+                                    tiles='openstreetmap',
+                                    zoom_start=15,
+                                    control_scale=True)
+                folium.Marker([latitude, longitude],
+                              tooltip=address,
+                              popup=f'<p id="latlon">{latitude}, {longitude}</p>').add_to(my_map)
+                my_map.add_child(folium.LatLngPopup())
+                # Add map and contact data to context
+                context['my_map'] = my_map._repr_html_()
+                context['contact_data'] = ContactPage.objects.all()
+                context['address'] = address
+            except:
+                context['contact_data'] = ContactPage.objects.all()
+                context['address'] = address + 'Return a status of \"Invalid address or not found!\" try changing it.'
 
         return context
 

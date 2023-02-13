@@ -78,7 +78,7 @@
       <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method="get" onsubmit="goTo(); return false;">
         <div class="custom_search_container">&nbsp;
           <i id="goto" class="fas fa-search"></i>
-          <input id="searchbar" type="text" placeholder="Search" aria-label="Search" {% if search_query %} value="{{ search_query }}"{% endif %}>
+          <input id="searchbar" type="" placeholder="Search" aria-label="Search" {% if search_query %} value="{{ search_query }}"{% endif %}>
         </div>
       </form>
     </div>
