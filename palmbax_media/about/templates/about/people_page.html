@@ -1,22 +1,49 @@
 
 {% extends "base.html" %}
-{% load static wagtailimages_tags %}
+{% load static wagtailimages_tags menu_tags%}
 {% load wagtailcore_tags %}
+{% get_menu "main-menu" as nav %}
 {% block extra_css %}
 <style>
-    .my_box2 {
-        margin-top: 25%;
-    }
+.custom_p {
+   font-size: 12px;
+   font-family: {{ nav.font }};
+}
+
+@media only screen and (max-device-width: 500px) {
+   #detail {
+     padding-right: 2%;
+     padding-left: 2%;
+     width: 100%
+   }
+}
+@media only screen and (min-device-width: 501px) and (max-device-width: 1200px) {
+   #detail {
+     padding-right: 5%;
+     padding-left: 5%;
+     width: 100%
+   }
+}
+
+
 </style>
 {% endblock %}
 {% block content %}
-<body>
-        <div class="container col-md-4">
-                <div class="my_box2"></div>
-                {% image self.profile original as img %}
-                <img id="prof_img" src="{{img.url}}" alt="{{img.alt}}"><br>
-                <h3 class="person_name">{{self.name}}</h3>
-                <p class="person_role">{{self.role}}</p>
+<div class="container-fluid p-5 mt-5 justify-content-center">
+        <div class="row w-100">
+                <div class="container col-md-4">
+                        {% image self.profile original as img %}
+                        <img id="prof_img" src="{{img.url}}" alt="{{img.alt}}"><br>
+                        <h3 class="person_name">{{self.name}}</h3>
+                        <p class="person_role">{{self.role}}</p>
+                </div>
+                <div id='detail' class="col-md-6">
+                        {% if self.details %}
+                        <p class="custom_p">{{self.details|richtext}}</p>
+                        {% else %}
+                        <p>No Details</p>
+                        {% endif %}
+                </div>
         </div>
-</bodY>
+</div>
 {% endblock %}

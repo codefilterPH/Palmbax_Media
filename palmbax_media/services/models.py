@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from django import forms
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+
 
 # my imports
 from banner.validators import *
@@ -40,7 +41,16 @@ class ServicePage(Page):
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         context['live_page_status'] = ServiceDetailPage.objects.live().exists()
-        context['service_data'] = ServiceDetailPage.objects.live()
+
+        all_pages = ServiceDetailPage.objects.live()
+        paginator = Paginator(all_pages, 6)
+        page = request.GET.get("page")
+        try:
+            context['service_data'] = paginator.page(page)
+        except PageNotAnInteger:
+            context['service_data'] = paginator.page(1)
+        except EmptyPage:
+            context['service_data'] = paginator.page(paginator.num_pages)
 
         return context
 
@@ -56,7 +66,7 @@ class ServiceDetailPage(Page):
     ], use_json_field=True)
 
     description = models.TextField(_('Package Description'),
-                                   max_length=200,
+                                   max_length=700,
                                    null=True,
                                    blank=True,
                                    help_text='Define your package.')
@@ -69,6 +79,8 @@ class ServiceDetailPage(Page):
         ('hr\'s', 'hours'),
         ('d', 'day'),
         ('d\'s', 'days'),
+        ('wk', 'week'),
+        ('wk\'s', 'weeks'),
         ('m', 'month'),
         ('mos', 'months'),
         ('yr', 'year'),
@@ -88,7 +100,11 @@ class ServiceDetailPage(Page):
                                 blank=True,
                                 )
     show_price_start = models.BooleanField(_('Show Price Start Tag'),
-                                           default=False)
+                                           default=False
+                                           )
+    feature = models.BooleanField(_('Feature To Home'),
+                                  default=False,
+                                  )
     remarks = models.TextField(_('Package Remarks'),
                                max_length=150,
                                null=True,
@@ -101,17 +117,17 @@ class ServiceDetailPage(Page):
         blank=True,
         on_delete=models.SET_NULL,
         related_name='+',
-        help_text='Best if image size is 250px height.'
+        help_text='Best if image size is landscape.'
     )
     service_video = models.FileField(_('Service Supporting Video'),
                                      max_length=50,
-                                     upload_to='banner_videos',
+                                     upload_to='service_videos',
                                      null=True,
                                      blank=True,
                                      validators=[mp4_validate_file_extension],
                                      help_text='Upload a video.')
 
-    service_youtube_url = models.CharField(_('Embed Youtube Video Link'),
+    service_youtube_url = models.CharField(_('Youtube Video Link'),
                                            max_length=200,
                                            null=True,
                                            blank=True,
@@ -138,6 +154,7 @@ class ServiceDetailPage(Page):
         APIField('unit'),
         APIField('price'),
         APIField('show_price_start'),
+        APIField('feature'),
         APIField('remarks'),
         APIField('service_image'),
         APIField('service_video'),
@@ -155,6 +172,7 @@ class ServiceDetailPage(Page):
         FieldRowPanel([
             FieldPanel('price', classname='Col4'),
             FieldPanel('show_price_start', classname='Col4'),
+            FieldPanel('feature', classname='Col2'),
         ]),
         FieldPanel('remarks'),
         MultiFieldPanel([

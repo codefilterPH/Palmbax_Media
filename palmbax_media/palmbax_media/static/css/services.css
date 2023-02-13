@@ -1,11 +1,14 @@
 {% load static %}
+
 .container-fluid {
     display: flex;
 }
+.pagination {
+    width: 100%;
+}
 .detail-main {
     height: auto;
-    width: 500px;
-    margin: auto;
+    width: 100%;
     padding-top: 8%;
     padding-bottom: 10%;
 }
@@ -15,7 +18,7 @@
     width: 100%;
 }
 .card-header {
-    height: 250px;
+    height: 270px;
     display:flex;
     padding: 1px;
     position: relative;
@@ -37,14 +40,48 @@
     left 0;
     filter: brightness(60%);
 }
+.description {
+  position: relative;
+  font-size: 14px;
+}
+
+.more-text {
+  margin-top: 10px;
+}
+
+.hidden {
+  display: none;
+}
+.show-more .more-text {
+  display: block;
+}
+
+.show-more .intro {
+  display: none;
+}
 .contact_info {
     font-size: 14px;
 }
+.my_see_btn {
+    text-decoration: underline;
+    font-size: 12px;
+}
+.my_custom_font {
+    text-decoration: underline;
+    font-size: 12px;
+}
+.my_paginator {
+    width:100%;
+}
+
 @media only screen and (max-device-width: 500px) {
     .detail-main {
+        justify-content: center;
         height: auto;
-        margin-left: 10%;
-        margin-right: 10%;
+        /* margin-left: 10%; */
+        /* margin-right: 10%; */
+        width: 100%;
+        margin: auto;
         padding-top: 20%;
         padding-bottom: 10%;
     }
@@ -63,13 +100,15 @@
 @media only screen and (min-device-width: 500px) and (max-device-width: 1200px) {
      .detail-main {
         height: auto;
-        width: 380px;
+        width: 372px;
         margin: auto;
         padding-top: 20%;
         padding-bottom: 10%;
+        /* flex-wrap: wrap; */
     }
     .card {
         text-align: center;
         width: 100%;
     }
 }
+

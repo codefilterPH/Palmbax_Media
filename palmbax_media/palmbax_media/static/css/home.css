@@ -1,5 +1,4 @@
 {% load static %}
-
 .empty_response {
   display: flex;
   flex-direction: column;

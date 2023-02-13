@@ -3,43 +3,57 @@
 {% load custom_filters %}
 {% block content %}
 {% if live_service_detail_status == True %}
-<div class="container-fluid pt-5">
-    <div class="detail-main">
-        <div class="card card-header">
-            {% image self.service_image original as img %}
-            <a href="{{img.url}}"><img id="my_img" src="{{img.url}}" alt="{{img.alt}}"></a>
-        </div>
-        <div class="card card-body">
-            <h4 class="service_title">{{ self.title}}</h4>
-            <hr>
-            <div class="row text-left contact_info">{{ self.duration }} {{ self.unit }}</div>
-            <div class="row text-left contact_info">&#8369; {{ self.price|add_thousand_separator  }}</div><br>
-            {% for block in self.packages %}
-                {% if block.block_type == 'package_entry' %}
-                    <div class="row my_row">- {{ block.value }}</div>
+<div class="container-fluid pt-5 justify-content-center">
+    <div class="col-md-4 d-flex">
+        <div class="detail-main mt-0">
+            <div class="card card-header">
+                {% image self.service_image original as img %}
+                <a href="{{img.url}}"><img id="my_img" src="{{img.url}}" alt="{{img.alt}}"></a>
+            </div>
+            <div class="card card-body">
+                <h4 class="service_title">{{ self.title}}</h4>
+                <hr>
+                <div class="row text-left">
+                    <div class="description">
+                       <p class="intro">{{ self.description | truncatechars:150 }}</p>
+                       <p class="more-text hidden">{{ self.description }}</p>
+                        <div class="col-lg text-right"><a type="button" class="btn btn-sm my_see_btn more-link" onclick="Services()">See more</a></div>
+                    </div>
+                </div>
+                <div class="row text-left contact_info pt-4">{{ self.duration }} {{ self.unit }}</div>
+                <div class="row text-left contact_info">{% if self.show_price_start %}Price starts at{% endif %} &#8369; {{ self.price|add_thousand_separator  }}</div><br>
+                {% for block in self.packages %}
+                    {% if block.block_type == 'package_entry' %}
+                        <div class="row my_row">- {{ block.value }}</div>
+                    {% endif %}
+                {% endfor %}<br>
+                <div class="row text-left contact_info">Additional Information:<span>{{ self.remarks }}</span></div>
+                <div class="row pt-4" style="width:100%; margin: 0;">
+                    <div class="col-lg text-right">
+                        {% if self.service_video %}
+                            <a type="button" class="btn btn-sm my_custom_font" href="{{ self.service_video.url }}" style="text-decoration: underline; color:black;">View video</a>
+                        {% endif %}
+                        <span><a type="button" class="btn btn-sm my_custom_font" href="{{ self.service_youtube_url}}" style="color:black;" target="_blank">View youtube</a></span>
+                    </div>
+                </div><hr>
+                {% get_menu "main-menu" as nav %}
+                {% if nav %}
+                <div class="row text-left"><h6>CONTACT US</h6></div>
+                <div class="contact_info">
+                    <div class="row text-left">{{ nav.company_name }}</div>
+                    <div class="row text-left">{% if nav.phone %} + 63 {% endif %} {{nav.phone}}</div>
+                    <div class="row text-left">{{ nav.email }}</div>
+                    <div class="row text-left">{{ nav.address }}</div>
+                </div>
+                <div class="row mt-5 justify-content-center">
+                    <button type="button" class="btn btn-md" style="background-color: {{nav.bg_color}}; color: {{nav.font_color}};">Book now</button>
+                </div>
+                {% else %}
+                <div class="row mt-5 justify-content-center">
+                    <button type="button" class="btn btn-md btn-primary">Book now</button>
+                </div>
                 {% endif %}
-            {% endfor %}<br>
-            <div class="row text-left contact_info">Additional Information:<span>{{ self.remarks }}</span></div>
-            <br><hr>
-            {% get_menu "main-menu" as nav %}
-            {% if nav %}
-            <div class="row text-left"><h6>CONTACT US</h6></div>
-            <div class="contact_info">
-                <div class="row text-left">{{ nav.company_name }}</div>
-                <div class="row text-left">{% if nav.phone %} + 63 {% endif %} {{nav.phone}}</div>
-                <div class="row text-left">{{ nav.email }}</div>
-                <div class="row text-left">{{ nav.address }}</div>
             </div>
-            <div class="row mt-5 justify-content-center">
-                <button type="button" class="btn btn-md" style="background-color: {{nav.bg_color}}; color: {{nav.font_color}};">Book now</button>
-            </div>
-            {% else %}
-            <div class="row mt-5 justify-content-center">
-                <button type="button" class="btn btn-md btn-primary">Book now</button>
-            </div>
-            {% endif %}
-
-
         </div>
     </div>
 </div>

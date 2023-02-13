@@ -1,14 +1,93 @@
 {% extends "base.html" %}
 {% load static wagtailimages_tags %}
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags custom_filters menu_tags%}
 {% block content %}
     <!--About Us!-->
 {% if live_page_status == True %}
-<div class="container-fluid pt-5">
-    <div class="detail-main">
+<div class="container-fluid pt-5 justify-content-center">
+    <div class="row" style="width:100%;">
         {% for item in service_data %}
-            {{ item }}
+        <div class="col-md-4 d-flex">
+           <div class="detail-main mt-0">
+                <div class="card card-header">
+                    {% image item.service_image original as img %}
+                    <a href="{{img.url}}"><img id="my_img" src="{{img.url}}" alt="{{img.alt}}"></a>
+                </div>
+                <div class="card card-body">
+                    <a href="{{item.url}}" style="color:black;"><h4 class="service_title">{{ item.title}}</h4></a>
+                    <hr>
+                    <div class="row text-left">
+                        <div class="description">
+                           <p class="intro">{{ item.description | truncatechars:150 }}</p>
+                           <p class="more-text hidden">{{ item.description }}</p>
+                            <div class="col-lg text-right"><a type="button" class="btn btn-sm my_see_btn more-link" onclick="Services()">See more</a></div>
+                        </div>
+                    </div>
+                    <div class="row text-left contact_info">{{ item.duration }} {{ item.unit }}</div>
+                    <div class="row text-left contact_info">{% if item.show_price_start %}Price starts at{% endif %} &#8369; {{ item.price|add_thousand_separator  }}</div><br>
+                    {% for block in item.packages %}
+                        {% if block.block_type == 'package_entry' %}
+                            <div class="row my_row">- {{ block.value }}</div>
+                        {% endif %}
+                    {% endfor %}<br>
+                    <div class="row text-left contact_info">Additional Information:<span>{{ item.remarks }}</span></div>
+                    <div class="row pt-4" style="width:100%; margin: 0;">
+                        <div class="col-lg text-right">
+                            {% if item.service_video %}
+                                <a href="{{ item.service_video.url }}" type="button" class="btn btn-sm my_custom_font" style="text-decoration: underline; color:black;" >View video</a>
+                            {% endif %}
+                            <span><a type="button" class="btn btn-sm my_custom_font" href="{{ self.service_youtube_url}}" style="color:black;" target="_blank">View youtube</a></span>
+                        </div>
+                    </div><hr>
+                    {% get_menu "main-menu" as nav %}
+                    {% if nav %}
+                    <div class="row text-left"><h6>CONTACT US</h6></div>
+                    <div class="contact_info">
+                        <div class="row text-left">{{ nav.company_name }}</div>
+                        <div class="row text-left">{% if nav.phone %} + 63 {% endif %} {{nav.phone}}</div>
+                        <div class="row text-left">{{ nav.email }}</div>
+                        <div class="row text-left">{{ nav.address }}</div>
+                    </div>
+                    <div class="row mt-5 justify-content-center">
+                        <button type="button" class="btn btn-md" style="background-color: {{nav.bg_color}}; color: {{nav.font_color}};">Book now</button>
+                    </div>
+                    {% else %}
+                    <div class="row mt-5 justify-content-center">
+                        <button type="button" class="btn btn-md btn-primary">Book now</button>
+                    </div>
+                    {% endif %}
+                </div>
+           </div>
+        </div>
         {% endfor %}
+        {# Only show pagination if there is more than one page to click through #}
+        {% if service_data.paginator.num_pages > 1 %}
+          <div class="my_paginator d-flex justify-content-center">
+            <nav aria-label="Page navigation">
+              <ul class="pagination justify-content-center">
+                {% if service_data.has_previous %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ service_data.previous_page_number }}" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                  </li>
+                {% endif %}
+                {% for page_num in service_data.paginator.page_range %}
+                  <li class="page-item {% if page_num == service_data.number %} active{% endif %}">
+                    <a class="page-link" href="?page={{ page_num }}">{{ page_num }}</a>
+                  </li>
+                {% endfor %}
+                {% if service_data.has_next %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ service_data.next_page_number }}" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                  </li>
+                {% endif %}
+              </ul>
+            </nav>
+          </div>
+        {% endif %}
     </div>
 </div>
 {% else %}
@@ -18,4 +97,9 @@
     <a href="/admin/" type="button" class="btn btn-primary btn-sm">create</a>
 </div>
 {% endif %}
+{% endblock %}
+{% block extra_js %}
+<script>
+
+</script>
 {% endblock %}

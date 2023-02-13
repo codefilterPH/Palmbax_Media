@@ -133,13 +133,21 @@ class PeoplePage(Page):
         on_delete=models.SET_NULL,
         related_name='+'
     )
-    name = models.TextField(_('Enter Employee/Staff Name'),
+    name = models.CharField(_('Employee/Staff Name'),
+                            max_length=50,
                             null=True,
                             blank=False,
-                            help_text='Please enter your reasons.')
+                            help_text='Type the name of the person.')
     role = models.ForeignKey(CompanyRole,
                              null=True,
                              on_delete=models.SET_NULL)
+    details = RichTextField(_('Details'),
+                            null=True,
+                            blank=False,
+                            help_text='Please person\'s best description.')
+    feature = models.BooleanField(_('Feature To Home'),
+                                  default=False,
+                                  )
 
     search_fields = Page.search_fields + [
         index.SearchField('name'),
@@ -149,12 +157,16 @@ class PeoplePage(Page):
         APIField('profile'),
         APIField('name'),
         APIField('role'),
+        APIField('details'),
+        APIField('feature'),
     ]
     content_panels = Page.content_panels + [
         MultiFieldPanel([
             FieldPanel('profile'),
             FieldPanel('name'),
             FieldPanel('role'),
+            FieldPanel('details'),
+            FieldPanel('feature'),
         ], heading='Profiles')
     ]
 
