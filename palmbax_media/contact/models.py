@@ -33,6 +33,7 @@ class ContactFormField(AbstractFormField):
         related_name='form_fields',
     )
 
+
 class ContactPage(AbstractEmailForm):
     max_count = 1
     parent_page_types = [
