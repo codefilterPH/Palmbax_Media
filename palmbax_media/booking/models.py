@@ -57,6 +57,6 @@ class BookingPage(AbstractEmailForm):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
-        context['booking_data'] = BookingPage.objects.all()
+        context['booking_page_status'] = BookingPage.objects.live().exists()
 
         return context
