@@ -10,13 +10,13 @@
 {% if contact_page_status == True %}
 <div id="contact_page" class="container-fluid justify-content-center align-items-center w-100">
     <div class="col-lg-8">
-        <div class="card-body h-100 w-100">
-            {% include 'contact/contact_form.html' with form=form %}
-        </div>
-        <br><hr><br>
         <div class="row w-100 justify-content-center align-items-center pt-3 pb-3"><h5>{{ address }}</h5></div>
         <div class="row height-auto">
             <div class="my-css-class">{{ my_map|safe }}</div>
+        </div>
+        <br><br><hr>
+        <div class="card-body h-100 w-100">
+            {% include 'contact/contact_form.html' with form=form %}
         </div>
     </div>
 </div>

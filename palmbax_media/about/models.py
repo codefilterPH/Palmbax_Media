@@ -48,6 +48,10 @@ class AboutPage(Page):
 
     search_fields = Page.search_fields + [
         index.SearchField('title'),
+        index.RelatedFields('why_choose_us', [
+            index.SearchField('title'),
+            index.SearchField('text'),
+        ])
     ]
 
     api_fields = [
