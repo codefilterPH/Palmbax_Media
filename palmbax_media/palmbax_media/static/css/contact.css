@@ -32,6 +32,7 @@ h1 {
 #form_fields li {
     margin-bottom: 10px;
     visibility: visible;
+    background-color: none;
 }
 label {
     display: flex;

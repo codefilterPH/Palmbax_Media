@@ -2,6 +2,8 @@
 
 .container-fluid {
     display: flex;
+    height: 100%;
+
 }
 .pagination {
     width: 100%;
@@ -16,6 +18,7 @@
     height: 380px;
     margin: auto;
     width: 100%;
+
 }
 .card-header {
     height: 270px;

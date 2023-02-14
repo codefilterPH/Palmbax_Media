@@ -172,15 +172,16 @@ class Menu(ClusterableModel):
                                   default='#3c3c3c',
                                   )
     FONT_CHOICES = [
-        ('\'Sofia Sans\', sans-serif', 'Sofia Sans'),
-        ('\'Open Sans\', sans-serif', 'Open Sans'),
-        ('\'Quicksand\', sans-serif', 'Quicksand'),
-        ('none', 'None'),
+        ("Sofia Sans, sans-serif", "Sofia Sans"),
+        ("Open Sans, sans-serif", "Open Sans"),
+        ("Quicksand, sans-serif", "Quicksand"),
+        ("none", "None"),
     ]
-    font = models.CharField(_('Font Family'),
+
+    font = models.CharField(_("Font Family"),
                             max_length=50,
                             choices=FONT_CHOICES,
-                            default='\'Sofia Sans\', sans-serif',
+                            default="\"Sofia Sans\", sans-serif",
                             )
     # slug = models.SlugField()
 

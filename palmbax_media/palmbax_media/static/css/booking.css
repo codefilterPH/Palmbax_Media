@@ -2,10 +2,40 @@
 
 #booking_row {
     padding-top: 10%;
+    padding-bottom: 7%;
+    /* background-color: #f1f2f2; */
+    /* width: 50%; */
 }
 #custom_form {
     padding-top: 5%;
     padding-bottom: 5%;
     background-image: linear-gradient(135deg, #dfe9f3 10%, #ffffff 100%);
-    border-radius: 8px;
+    border-radius: 16px;
 }
+@media only screen and (max-device-width: 500px) {
+    #booking_row {
+        padding-top: 3%;
+    }
+    #custom_form {
+        padding-top: 25%;
+        padding-bottom: 5%;
+        /* margin-right: auto; */
+        /* margin-left: auto; */
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+}
+@media only screen and (min-device-width: 500px) and (max-device-width: 1200px) {
+     #custom_form {
+        padding-top: 10%;
+        padding-left: 1%;
+        padding-right: 1%;
+        padding-bottom: 5%;
+    }
+    #booking_row {
+        padding-top: 12%;
+        /* width: 50%; */
+        margin: auto;
+    }
+}
+

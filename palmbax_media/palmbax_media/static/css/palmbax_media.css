@@ -3,7 +3,9 @@
 body {
     height: 100%;
     margin: 0;
-    font-family: {{ nav.font }}
+    font-family: {{ nav.font }};
+    background-image: linear-gradient(135deg, #fdfbfb 10%, #ebedee 100%);
+    padding-bottom: 5%;
 }
 .input {
     visibility: visible;
