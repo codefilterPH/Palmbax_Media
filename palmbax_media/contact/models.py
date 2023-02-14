@@ -18,6 +18,8 @@ from wagtail.contrib.forms.models import (
     AbstractEmailForm,
     AbstractFormField
 )
+from django.core.mail import EmailMessage
+
 from menu.models import *
 
 # third party
@@ -99,44 +101,19 @@ class ContactPage(AbstractEmailForm):
 
         return context
 
+    def process_form_submission(self, form):
+        # Call the parent class's method to handle the form submission
+        super().process_form_submission(form)
 
-class BookingFormField(AbstractFormField):
-    page = ParentalKey(
-        'BookingPage',
-        on_delete=models.CASCADE,
-        related_name='form_fields',
-    )
+        # Get the form data
+        data = form.cleaned_data
+        email = Menu.objects.values_list('email', flat=True).first()
+        # Construct the email message
+        subject = self.subject
+        body = '\n'.join([f'{key}: {value}' for key, value in data.items()])
+        from_email = email
+        to_email = self.to_address
+        email_message = EmailMessage(subject, body, from_email, [to_email])
 
-
-class BookingPage(AbstractEmailForm):
-    max_count = 1
-    parent_page_types = [
-        'about.AboutPage',
-    ]
-    template = 'book/book_page.html'
-    landing_page_template = "book/book_page_landing.html"
-    book_thank_you_text = RichTextField(blank=True)
-
-    content_panels = AbstractEmailForm.content_panels + [
-        MultiFieldPanel([
-            InlinePanel('form_fields', label='Form Fields'),
-            FieldPanel('book_thank_you_text'),
-            MultiFieldPanel([
-                FieldRowPanel([
-                    FieldPanel('from_address', classname="col6"),
-                    FieldPanel('to_address', classname="col6"),
-                ]),
-                FieldPanel("subject"),
-            ], heading="Email Settings"),
-        ], heading="Booking Page Form"),
-    ]
-
-    class Meta:
-        verbose_name = _('Booking Page')
-        verbose_name_plural = _('Booking Pages')
-
-    def get_context(self, request, *args, **kwargs):
-        context = super().get_context(request, *args, **kwargs)
-        context['booking_data'] = BookingPage.objects.all()
-
-        return context
+        # Send the email
+        email_message.send()

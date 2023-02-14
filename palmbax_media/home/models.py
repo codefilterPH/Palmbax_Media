@@ -7,6 +7,7 @@ from working_hours.models import *
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from contact.models import *
 from menu.models import *
+from booking.models import *
 
 
 class HomePage(Page):
@@ -18,6 +19,7 @@ class HomePage(Page):
         'contact.ContactPage',
         'banner.BannerPage',
         'services.ServicePage',
+        'booking.BookingPage',
     ]
 
     def __str__(self):
@@ -59,7 +61,8 @@ class HomePage(Page):
         context['contact_page_status'] = ContactPage.objects.live().exists()
         context['contact_page'] = ContactPage.objects.live().first()
         address = Menu.objects.values_list('address', flat=True).first()
-
+        booking_page = BookingPage.objects.live().first()
+        context['book_page'] = booking_page.url
         # If address is not None, get the location information
         if address is not None:
             geolocator = Nominatim(user_agent="Corporate Website")
@@ -80,6 +83,7 @@ class HomePage(Page):
                 # Add map and contact data to context
                 context['my_map'] = my_map._repr_html_()
                 context['address'] = address
+
             except:
                 context['address'] = address + 'Return a status of \"Invalid address or not found!\" try changing it.'
 

@@ -126,11 +126,11 @@
                                 <div class="row text-left">{{ nav.address }}</div>
                             </div>
                             <div class="row mt-5 justify-content-center">
-                                <button type="button" class="btn btn-md" style="background-color: {{nav.bg_color}}; color: {{nav.font_color}};">Book now</button>
+                                <a type="Submit"  href="{{ book_page }}" class="btn btn-md" style="background-color: {{nav.bg_color}}; color: {{nav.font_color}};">Book now</a>
                             </div>
                             {% else %}
                             <div class="row mt-5 justify-content-center">
-                                <button type="button" class="btn btn-md btn-primary">Book now</button>
+                                <a href="{{book_page}}" type="Submit" class="btn btn-md btn-primary">Book now</a>
                             </div>
                             {% endif %}
                         </div>

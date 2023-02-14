@@ -2,7 +2,6 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
-
 # my imports
 from banner.validators import *
 
@@ -19,6 +18,8 @@ from wagtail.fields import StreamField
 
 # wagtail API
 from wagtail.api import APIField
+
+from booking.models import *
 
 
 class ServicePage(Page):
@@ -71,7 +72,7 @@ class ServiceDetailPage(Page):
                                    blank=True,
                                    help_text='Define your package.')
 
-    duration = models.IntegerField(blank=True, null=True,)
+    duration = models.IntegerField(blank=True, null=True, )
     COLOR_CHOICES = [
         ('min', 'min'),
         ('m\'s', 'mins'),
@@ -195,5 +196,7 @@ class ServiceDetailPage(Page):
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         context['live_service_detail_status'] = ServiceDetailPage.objects.live().exists()
+        booking_page = BookingPage.objects.live().first()
+        context['book_page'] = booking_page.url
 
         return context

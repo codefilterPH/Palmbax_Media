@@ -24,8 +24,6 @@ class AboutPage(Page):
         'home.HomePage',
     ]
     subpage_types = [
-        'contact.ContactPage',
-        'contact.BookingPage',
         'about.PeoplePage',
         'about.AnalyticSettings',
         'about.Clients',
