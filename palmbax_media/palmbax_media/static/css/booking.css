@@ -1,0 +1,11 @@
+{% load static %}
+
+#booking_row {
+    padding-top: 10%;
+}
+#custom_form {
+    padding-top: 5%;
+    padding-bottom: 5%;
+    background-image: linear-gradient(135deg, #dfe9f3 10%, #ffffff 100%);
+    border-radius: 8px;
+}
