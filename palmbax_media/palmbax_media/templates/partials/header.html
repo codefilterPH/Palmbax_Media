@@ -51,7 +51,7 @@
 
 </style>
 {% endblock %}
-  <nav class="navbar navbar-expand-lg fixed-top" style="background-color: {{nav.bg_color}}">
+  <nav class="navbar navbar-expand-lg fixed-top" style="{% if nav.bg_color_settings %} background-image: {{nav.bg_gradiant_image}}; {% else %}  background-color: {{nav.bg_color}}; {% endif %}">
     {% if nav.company_logo %}
     {% image nav.company_logo original as img %}
     <img id="comp_logo" id="hide" src="{{img.url}}" href="/" width="30" height="30" class="d-inline-block align-top" alt="">&nbsp;

@@ -134,20 +134,37 @@ class Menu(ClusterableModel):
                                                  help_text='Enter your telephone phone number.')
 
     COLOR_CHOICES = [
-        ('#ffffff', 'light'),
-        ('#007bff', 'blue'),
-        ('#37a1fe', 'sky blue'),
-        ('#4caf50', 'green'),
-        ('#7f00ff', 'purple'),
-        ('#3c3c3c', 'dark'),
-        ('#000000', 'black'),
-    ]
+        ('#ffffff', 'Light'),
+        ('#007bff', 'Blue'),
+        ('#37a1fe', 'Sky Blue'),
+        ('#4caf50', 'Green'),
+        ('#7f00ff', 'Purple'),
+        ('#3c3c3c', 'Dark'),
+        ('#000000', 'Black'),
 
+    ]
     bg_color = models.CharField(_('Background Color'),
                                 max_length=7,
                                 choices=COLOR_CHOICES,
                                 default='#ffffff',
                                 )
+    GRADIANT_CHOICES = [
+        ('linear-gradient(135deg, #C33764 10%, #1D2671 100%)', 'Dark Purple Blue'),
+        ('linear-gradient(135deg, #92FFC0 10%, #002661 100%)', 'Aqua Blue'),
+        ('linear-gradient(135deg, #536976 10%, #292E49 100%)', 'Light Dark'),
+        ('linear-gradient(135deg, #FFDB01 10%, #0E197D 100%)', 'Gold Blue'),
+        ('linear-gradient(135deg, #FF9D6C 10%, #BB4E75 100%)', 'BRT Orange & Mod Pink'),
+        ('linear-gradient(135deg, #007adf 10%, #00ecbc 100%)', 'Dark Sky Blue'),
+        ('linear-gradient(135deg, #434343 10%, #000000 100%)', 'Dark Grey'),
+
+    ]
+    bg_gradiant_image = models.CharField(_('Background Gradiant Color'),
+                                         max_length=50,
+                                         choices=GRADIANT_CHOICES,
+                                         default='linear-gradient(135deg, #C33764 10%, #1D2671 100%)',
+                                         )
+
+    bg_color_settings = models.BooleanField(_('Use Gradient as Background'), default=False)
 
     font_color = models.CharField(_('Font Color'),
                                   max_length=7,
@@ -158,9 +175,8 @@ class Menu(ClusterableModel):
         ('\'Sofia Sans\', sans-serif', 'Sofia Sans'),
         ('\'Open Sans\', sans-serif', 'Open Sans'),
         ('\'Quicksand\', sans-serif', 'Quicksand'),
-        ('none','None'),
+        ('none', 'None'),
     ]
-
     font = models.CharField(_('Font Family'),
                             max_length=50,
                             choices=FONT_CHOICES,
@@ -176,15 +192,24 @@ class Menu(ClusterableModel):
         APIField('email'),
         APIField('phone'),
         APIField('telephone'),
+        APIField('bg_color'),
+        APIField('bg_gradiant_image'),
+        APIField('bg_color_settings'),
+        APIField('font_color'),
+        APIField('font'),
     ]
 
     panels = [
         MultiFieldPanel([
             FieldRowPanel([
                 FieldPanel('font_color', classname='Col2'),
-                FieldPanel('bg_color', classname='Col2'),
                 FieldPanel('font', classname='Col4'),
             ]),
+            FieldRowPanel([
+                FieldPanel('bg_color', classname='Col4'),
+                FieldPanel('bg_gradiant_image', classname='Col4'),
+                FieldPanel('bg_color_settings', classname='Col2'),
+            ])
         ], heading='Theme'),
         MultiFieldPanel([
             FieldPanel('company_name'),
