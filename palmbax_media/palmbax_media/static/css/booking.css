@@ -1,21 +1,19 @@
 {% load static %}
 
-.parallax {
+.booking_parallax {
     background-image: url("/static/img/booking/bg_booking.jpg");
-    /* position: absolute; */
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
     height: 220vh;
-
 }
 #custom__title {
     color: white;
 }
 #custom_form {
     padding-top: 5%;
-    padding-bottom: 5%;
-    background-color: rgba(0, 0, 0, 0.5);
+    padding-bottom: 8%;
+    background-color: rgba(0, 0, 0, 0.7);
     border-radius: 16px;
     color: white;
 }

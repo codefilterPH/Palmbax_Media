@@ -47,15 +47,11 @@ class BookingPage(AbstractEmailForm):
     )
 
     booking_cover_settings = models.BooleanField(_('Use Default Background Image'),
-                                            default=True,
-                                            help_text='Do you want to use the default parallax cover image? click the '
-                                                      'box for yes.')
+                                                 default=True,
+                                                 help_text='Do you want to use the default parallax cover image? click the '
+                                                           'box for yes.')
 
     content_panels = AbstractEmailForm.content_panels + [
-        MultiFieldPanel([
-            FieldPanel('booking_page_background'),
-            FieldPanel('booking_cover_settings'),
-        ], heading='Page Setup'),
         MultiFieldPanel([
             InlinePanel('form_fields', label='Form Fields'),
             FieldPanel('book_thank_you_text'),
