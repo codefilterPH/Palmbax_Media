@@ -236,3 +236,39 @@ class Menu(ClusterableModel):
     class Meta:
         verbose_name = 'Main Setup'
         verbose_name_plural = 'Main Setup'
+
+
+@register_snippet
+class Social(models.Model):
+    title = models.CharField(default='Social Media Accounts',
+                             max_length=50,
+                             blank=True,
+                             )
+    fb_profile = models.CharField(_('Facebook Profile'),
+                                  max_length=500,
+                                  blank=True,
+                                  help_text='Ex. https://www.facebook.com/codefilterph'
+                                  )
+    twitter_profile = models.CharField(_('Twitter Profile'),
+                                       max_length=500,
+                                       blank=True
+                                       )
+    gmail_profile = models.CharField(_('Gmail Profile'),
+                                     max_length=500,
+                                     blank=True
+                                     )
+    instagram_profile = models.CharField(_('Instagram Profile'),
+                                         max_length=500,
+                                         blank=True
+                                         )
+    linked_profile = models.CharField(_('Linkedin Profile'),
+                                      max_length=500,
+                                      blank=True
+                                      )
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = "Social Media Accounts"
+
