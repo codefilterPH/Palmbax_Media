@@ -1,9 +1,9 @@
 {% load static %}
 
 .container-fluid {
+    /* position: absolute; */
     display: flex;
     height: 100%;
-
 }
 .pagination {
     width: 100%;
@@ -29,9 +29,11 @@
 }
 .card-body {
     height: auto;
-    padding: 10%;
+    /* margin-top: 2%; */
+    padding-top: 5%;
+    padding-left: 23%;
+    padding-right: 23%;
     text-align: left;
-
 }
 .service_title {
     text-align: center;

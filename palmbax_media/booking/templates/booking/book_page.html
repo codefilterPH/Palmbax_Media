@@ -2,16 +2,19 @@
 {% load static wagtailcore_tags wagtailimages_tags menu_tags %}
 {% block content %}
 {% if booking_page_status %}
-<div class="container-fluid text-center justify-content-center align-items-center d-flex">
-    <div id="booking_row" class="row">
-        <form id="custom_form" class="justify-content-center align-items-center pb-5" action="{% pageurl page %}" method="POST" target="_blank">
-             {% csrf_token %}
-            <h1 class="pb-5 pl-5 pr-5 mt-5">BOOK WITH US NOW!</h1>
-            <ul id="form_fields" class="pb-5">{{ form.as_p }}</ul>
-            <button class="btn btn-md btn-dark" id="Mybutton" type="Submit" style="color: white;">Submit Form</button>
-        </form>
+
+{% image self.booking_page_background original class="parallax" %}
+
+    <div class="container-fluid text-center justify-content-center align-items-center d-flex">
+        <div id="booking_row" class="row">
+            <form id="custom_form" class="justify-content-center align-items-center pb-5" action="{% pageurl page %}" method="POST" target="_blank">
+                 {% csrf_token %}
+                <h1 id="custom__title" class="pb-5 pl-5 pr-5 mt-5">BOOK WITH US NOW!</h1>
+                <ul id="form_fields" class="pb-5">{{ form.as_p }}</ul>
+                <button class="btn btn-md btn-dark" id="Mybutton" type="Submit" style="color: white;">Submit Form</button>
+            </form>
+        </div>
     </div>
-</div>
 {% else %}
     {% include 'partials/no_page.html' %}
 {% endif %}

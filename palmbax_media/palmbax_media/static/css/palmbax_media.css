@@ -3,10 +3,11 @@
 body {
     height: 100%;
     margin: 0;
-    font-family: {{ nav.font }};
+    font-family: {{ nav.font}};
     background-image: linear-gradient(135deg, #fdfbfb 10%, #ebedee 100%);
-    padding-bottom: 5%;
+    padding-bottom: 6%;
 }
+
 .input {
     visibility: visible;
 }
@@ -51,3 +52,17 @@ li:hover {
    justify-content: center;
    padding: 4px;
    width: 100%;
+}
+
+
+@media (min-width: 768px) {
+  .parallax {
+    background-position: 50% calc(50% - 50vh);
+  }
+}
+
+@media (min-width: 1024px) {
+  .parallax {
+    background-position: 50% calc(50% - 100vh);
+  }
+}

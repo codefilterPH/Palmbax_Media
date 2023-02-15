@@ -1,16 +1,23 @@
 {% load static %}
 
-#booking_row {
-    padding-top: 10%;
-    padding-bottom: 7%;
-    /* background-color: #f1f2f2; */
-    /* width: 50%; */
+.parallax {
+    background-image: url("/static/img/booking/bg_booking.jpg");
+    /* position: absolute; */
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    height: 220vh;
+
+}
+#custom__title {
+    color: white;
 }
 #custom_form {
     padding-top: 5%;
     padding-bottom: 5%;
-    background-image: linear-gradient(135deg, #dfe9f3 10%, #ffffff 100%);
+    background-color: rgba(0, 0, 0, 0.5);
     border-radius: 16px;
+    color: white;
 }
 @media only screen and (max-device-width: 500px) {
     #booking_row {
@@ -19,10 +26,11 @@
     #custom_form {
         padding-top: 25%;
         padding-bottom: 5%;
-        /* margin-right: auto; */
-        /* margin-left: auto; */
         padding-left: 10%;
         padding-right: 10%;
+    }
+    .parallax {
+        background-position: 50% calc(50% - 50vh);
     }
 }
 @media only screen and (min-device-width: 500px) and (max-device-width: 1200px) {
@@ -34,8 +42,10 @@
     }
     #booking_row {
         padding-top: 12%;
-        /* width: 50%; */
         margin: auto;
+    }
+    .parallax {
+        background-position: 50% calc(50% - 100vh);
     }
 }
 
