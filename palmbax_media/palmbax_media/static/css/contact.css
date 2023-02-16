@@ -1,21 +1,46 @@
 {% load static %}
 
-#contact_page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 10%;
-    margin-bottom: 5%;
+.contact_parallax {
+    background-image: url("/static/img/contact/contact_us.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    height: 280vh;
 }
-.my-css-class{
+
+.contact_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 8%;
+}
+.contact_form  {
+    padding-top: 5%;
+    padding-bottom: 8%;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 16px;
+    color: white;
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-bottom: 30%;
+}
+.address_setup {
+    flex-wrap: wrap;
+    height: 10vh;
+    text-align: center;
+    margin: auto;
+}
+.my_map {
     width: 100%;
     text-align: center;
     justify-content: center;
     display: flex;
+    border-radius: 16px;
 }
 iframe {
     height: 200px;
     width: 100%;
+    border-radius: 16px;
 }
 h1 {
     display: flex;
@@ -61,7 +86,7 @@ input[type="number"] {
     width: 100%;
     border: none;
 }
-#Mybutton {
+.my_btn {
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
@@ -72,3 +97,54 @@ input[type="number"] {
     opacity: 0.3;
     font-size: 10px;
 }
+
+@media only screen and (max-device-width: 500px) {
+    .contact_parallax {
+        height: auto;
+        background-position: 50% calc(50% - 100vh);
+    }
+    .contact_container {
+        padding-top: 15%;
+    }
+    .contact_form  {
+        padding-top: 5%;
+        padding-bottom: 8%;
+        background-color: rgba(0, 0, 0, 0.7);
+        border-radius: 16px;
+        color: white;
+        margin-left: 10%;
+        margin-right: 10%;
+        margin-bottom: 20%;
+    }
+}
+
+@media only screen and (min-device-width: 501px) and (max-device-width: 700px) {
+    .contact_parallax {
+
+    }
+    .contact_container {
+        padding-top: 12%;
+    }
+    .contact_form  {
+        margin-left: 15%;
+        margin-right: 15%;
+    }
+
+}
+@media only screen and (min-device-width: 701px) and (max-device-width: 1400px) {
+    .contact_parallax {
+height: auto;
+}
+    .contact_container {
+        padding-top: 12%;
+    }
+    .contact_form  {
+        margin-left: 25%;
+        margin-right: 25%;
+        /* margin-bottom: 30%; */
+    }
+
+}
+
+
+

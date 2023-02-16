@@ -183,67 +183,6 @@ class Menu(ClusterableModel):
                             choices=FONT_CHOICES,
                             default="\"Sofia Sans\", sans-serif",
                             )
-    # slug = models.SlugField()
-
-    api_fields = [
-        APIField('company_name'),
-        APIField('company_logo'),
-        APIField('detail'),
-        APIField('address'),
-        APIField('email'),
-        APIField('phone'),
-        APIField('telephone'),
-        APIField('bg_color'),
-        APIField('bg_gradiant_image'),
-        APIField('bg_color_settings'),
-        APIField('font_color'),
-        APIField('font'),
-    ]
-
-    panels = [
-        MultiFieldPanel([
-            FieldRowPanel([
-                FieldPanel('font_color', classname='Col2'),
-                FieldPanel('font', classname='Col4'),
-            ]),
-            FieldRowPanel([
-                FieldPanel('bg_color', classname='Col4'),
-                FieldPanel('bg_gradiant_image', classname='Col4'),
-                FieldPanel('bg_color_settings', classname='Col2'),
-            ])
-        ], heading='Theme'),
-        MultiFieldPanel([
-            FieldPanel('company_name'),
-            FieldPanel('company_logo'),
-            FieldPanel('detail'),
-            FieldPanel('address'),
-            FieldPanel('email'),
-            FieldRowPanel([
-                FieldPanel('phone', classname='Col6'),
-                FieldPanel('telephone', classname='Col6'),
-            ]),
-        ], heading='Company Information'),
-        MultiFieldPanel([
-            FieldPanel("title"),
-            FieldPanel("slug"),
-        ], heading="Menu"),
-        InlinePanel("menu_items", label="Menu Item"),
-    ]
-
-    def __str__(self):
-        return self.title
-
-    class Meta:
-        verbose_name = 'Main Setup'
-        verbose_name_plural = 'Main Setup'
-
-
-@register_snippet
-class Social(models.Model):
-    title = models.CharField(default='Social Media Accounts',
-                             max_length=50,
-                             blank=True,
-                             )
     fb_profile = models.CharField(_('Facebook Profile'),
                                   max_length=500,
                                   blank=True,
@@ -266,9 +205,64 @@ class Social(models.Model):
                                       blank=True
                                       )
 
+    # slug = models.SlugField()
+
+    api_fields = [
+        APIField('company_name'),
+        APIField('company_logo'),
+        APIField('detail'),
+        APIField('address'),
+        APIField('email'),
+        APIField('phone'),
+        APIField('telephone'),
+        APIField('bg_color'),
+        APIField('bg_gradiant_image'),
+        APIField('bg_color_settings'),
+        APIField('font_color'),
+        APIField('font'),
+    ]
+
+    panels = [
+        MultiFieldPanel([
+            FieldRowPanel([
+                FieldPanel('font_color', classname='Col2'),
+                FieldPanel('font', classname='Col6'),
+            ]),
+            FieldRowPanel([
+                FieldPanel('bg_color', classname='Col4'),
+                FieldPanel('bg_gradiant_image', classname='Col4'),
+                FieldPanel('bg_color_settings', classname='Col2'),
+            ])
+        ], heading='Theme'),
+        MultiFieldPanel([
+            FieldPanel('company_name'),
+            FieldPanel('company_logo'),
+            FieldPanel('detail'),
+            FieldPanel('address'),
+            FieldPanel('email'),
+            FieldRowPanel([
+                FieldPanel('phone', classname='Col6'),
+                FieldPanel('telephone', classname='Col6'),
+            ]),
+            MultiFieldPanel([
+                FieldPanel('fb_profile'),
+                FieldPanel('twitter_profile'),
+                FieldPanel('gmail_profile'),
+                FieldPanel('instagram_profile'),
+                FieldPanel('linked_profile'),
+            ], heading = 'Social Media Accounts'),
+        ], heading='Company Information'),
+        MultiFieldPanel([
+            FieldPanel("title"),
+            FieldPanel("slug"),
+        ], heading="Menu"),
+        InlinePanel("menu_items", label="Menu Item"),
+    ]
+
     def __str__(self):
         return self.title
 
     class Meta:
-        verbose_name = "Social Media Accounts"
+        verbose_name = 'Main Setup'
+        verbose_name_plural = 'Main Setup'
 

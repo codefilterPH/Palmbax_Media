@@ -8,14 +8,18 @@
 {% endblock %}
 {% block content %}
 {% if contact_page_status == True %}
-<div id="contact_page" class="container-fluid justify-content-center align-items-center w-100">
-    <div class="col-lg-8">
-        <div class="row w-100 justify-content-center align-items-center pt-3 pb-3"><h5>{{ address }}</h5></div>
-        <div class="row height-auto">
-            <div class="my-css-class">{{ my_map|safe }}</div>
-        </div>
-        <br><br><hr>
-        <div class="card-body h-100 w-100">
+<div class="contact_parallax">
+    <div class="contact_container">
+        <div class="col-lg-8">
+            <div class="row height-auto">
+                <div class="my_map">{{ my_map|safe }}</div>
+            </div>
+            <div class="address_setup row w-100 pt-3">
+                <div class="col justify-content-center">
+                    <div class="row text-center justify-content-center"><h1>OUR LOCATION</h1></div>
+                    <div class="row text-center justify-content-center"><h5>{{ address }}</h5></div>
+                </div>
+            </div><br><hr>
             {% include 'contact/contact_form.html' with form=form %}
         </div>
     </div>

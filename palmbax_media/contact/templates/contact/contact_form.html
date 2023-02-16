@@ -2,10 +2,10 @@
 {% load static wagtailcore_tags wagtailimages_tags menu_tags %}
 
 <div class="row text-center justify-content-center align-items-center pt-3">
-    <form id="custom_form" class="justify-content-center align-items-center pb-5" action="{% pageurl page %}" method="POST" target="_blank">
+    <form class="contact_form justify-content-center align-items-center" action="{% pageurl page %}" method="POST" target="_blank">
          {% csrf_token %}
          <h1 id="custom__title" class="text-center pb-5 pt-3">Contact Us</h1>
         <ul id="form_fields" class="pb-5">{{ form.as_p }}</ul>
-        <button class="btn btn-md btn-dark" id="Mybutton" type="Submit" style="color: white;">Submit Form</button>
+        <button class="btn btn-md btn-success my_btn" type="Submit" style="color: white;">Submit Form</button>
     </form>
 </div>

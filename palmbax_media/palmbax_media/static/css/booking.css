@@ -5,45 +5,58 @@
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
-    height: 220vh;
+    height: 255vh;
 }
 #custom__title {
     color: white;
 }
-#custom_form {
-    padding-top: 5%;
-    padding-bottom: 8%;
+.contact_form {
+    padding-top: 6%;
+    padding-bottom: 4%;
     background-color: rgba(0, 0, 0, 0.7);
     border-radius: 16px;
     color: white;
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-bottom: 5%;
+    margin-top: 9%;
 }
 @media only screen and (max-device-width: 500px) {
-    #booking_row {
-        padding-top: 3%;
+    .booking_parallax {
+        height: auto;
     }
-    #custom_form {
-        padding-top: 25%;
+    .contact_form {
         padding-bottom: 5%;
-        padding-left: 10%;
-        padding-right: 10%;
-    }
-    .parallax {
-        background-position: 50% calc(50% - 50vh);
+        padding-left: 0%;
+        padding-right: 0%;
+        margin-top: 18%;
+        margin-left: 1%;
+        margin-right: 1%;
+        margin-bottom: 5%;
     }
 }
-@media only screen and (min-device-width: 500px) and (max-device-width: 1200px) {
-     #custom_form {
-        padding-top: 10%;
-        padding-left: 1%;
-        padding-right: 1%;
-        padding-bottom: 5%;
+@media only screen and (min-device-width: 501px) and (max-device-width: 700px) {
+     .booking_parallax {
+        height: auto;
+     }
+     .contact_form {
+        padding-top: 9%;
+        padding-left: 0%;
+        padding-right: 0%;
+        padding-bottom: 7%;
+        margin-right: 9%;
+        margin-left: 9%;
+        margin-bottom: 8%;
     }
-    #booking_row {
+    .booking_row {
         padding-top: 12%;
         margin: auto;
     }
-    .parallax {
-        background-position: 50% calc(50% - 100vh);
-    }
+
+}
+@media only screen and (min-device-width: 701px) and (max-device-width: 1400px) {
+     .booking_parallax {
+        height: auto;
+     }
 }
 
