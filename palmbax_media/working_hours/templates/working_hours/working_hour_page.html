@@ -4,7 +4,8 @@
 {% block content %}
 {% if data_exists_status == True %}
     {% if opening_hours_status == True %}
-    <div class="working-hours text-center justify-content-center">
+    <div class="working_parallax">
+      <div class="working-hours text-center justify-content-center">
       <h1 class="working-hours-title">WORKING HOURS</h1>
       <h4>Contact us Today</h4>
       <table class="mt-5">
@@ -37,6 +38,7 @@
           <td>{{self.sunday}}</td>
         </tr>
       </table>
+    </div>
     </div>
     {% else %}
       {% include 'partials/no_page.html' %}

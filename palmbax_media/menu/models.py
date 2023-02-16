@@ -161,7 +161,7 @@ class Menu(ClusterableModel):
     bg_gradiant_image = models.CharField(_('Background Gradiant Color'),
                                          max_length=50,
                                          choices=GRADIANT_CHOICES,
-                                         default='linear-gradient(135deg, #C33764 10%, #1D2671 100%)',
+                                         default='linear-gradient(135deg, #434343 10%, #000000 100%)',
                                          )
 
     bg_color_settings = models.BooleanField(_('Use Gradient as Background'), default=False)
@@ -181,7 +181,7 @@ class Menu(ClusterableModel):
     font = models.CharField(_("Font Family"),
                             max_length=50,
                             choices=FONT_CHOICES,
-                            default="\"Sofia Sans\", sans-serif",
+                            default="Sofia Sans, sans-serif",
                             )
     fb_profile = models.CharField(_('Facebook Profile'),
                                   max_length=500,

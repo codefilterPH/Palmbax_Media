@@ -1,5 +1,14 @@
 {% load static %}
+.working_parallax {
+    background-image: url("/static/img/opening_hours/bg_working.jpg");
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    height: auto;
+    padding-top: 10%;
+    padding-bottom: 10%;
 
+}
 .working-hours {
   width: 40%;
   margin-top: 7%;
@@ -9,7 +18,8 @@
   padding-bottom: 5vh;
   padding-top: 2%;
   margin-bottom: 10vh;
-  background-image: linear-gradient(135deg, #dfe9f3 10%, #ffffff 100%);
+  color: white;
+  background-color: rgba(0, 0, 0, .8);
   border-radius: 16px;
 }
 h1 {
@@ -21,6 +31,7 @@ h1 {
   text-align: center;
   padding-top: 10%;
   justify-content: center;
+  color: white;
 }
 
 table {
@@ -38,7 +49,7 @@ th {
   background-color: #ddd;
 }
 
-@media only screen and (max-device-width: 499px) {
+@media only screen and (max-device-width: 500px) {
     .working-hours {
       width: 80%;
       height: 100%;
@@ -55,15 +66,19 @@ th {
       text-align: center;
     }
 }
-@media only screen and (min-device-width: 500px) and (max-device-width: 1200px) {
+@media only screen and (min-device-width: 501px) and (max-device-width: 700px) {
+    .working_parallax {
+        padding-top: 8%;
+        padding-bottom: 2%;
+    }
     .working-hours {
-      width: 50%;
+      width: 79%;
       text-align: center;
       margin-left: auto;
       /* padding-top: 15%; */
       margin-right: auto;
       padding-bottom: 5%;
-      margin-top: 13%;
+      /* margin-top: 13%; */
     }
     .working-hours-title {
       font-size: 30px;
@@ -71,3 +86,24 @@ th {
       text-align: center;
     }
 }
+@media only screen and (min-device-width: 701px) and (max-device-width: 1400px) {
+    .working_parallax {
+        padding-top: 8%;
+        padding-bottom: 2%;
+    }
+    .working-hours {
+      width: 45%;
+      text-align: center;
+      margin-left: auto;
+      /* padding-top: 15%; */
+      margin-right: auto;
+      padding-bottom: 3%;
+      margin-top: 3%;
+    }
+    .working-hours-title {
+      font-size: 30px;
+      justify-content: center;
+      text-align: center;
+    }
+}
+
