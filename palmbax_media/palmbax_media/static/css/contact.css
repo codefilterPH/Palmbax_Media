@@ -5,7 +5,7 @@
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
-    height: 280vh;
+    height: auto;
 }
 
 .contact_container {
@@ -133,8 +133,10 @@ input[type="number"] {
 }
 @media only screen and (min-device-width: 701px) and (max-device-width: 1400px) {
     .contact_parallax {
-height: auto;
-}
+
+height: auto;
+
+}
     .contact_container {
         padding-top: 12%;
     }
