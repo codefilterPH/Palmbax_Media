@@ -237,11 +237,7 @@
     </section>
     {% endif %}
 {% else %}
-    <div class="empty_response">
-        <h1>NO LIVE PAGE EXISTS YET</h1>
-        <p>There are no published pages. Once there are you’ll see them here.</p>
-        <a href="/admin/pages/add/about/aboutpage/3/?next=/admin/about-page-admin/" type="button" class="btn btn-primary btn-sm">create</a>
-    </div>
+    {% include 'partials/no_page.html' %}
 {% endif %}
 </div>
 {% endblock content %}
