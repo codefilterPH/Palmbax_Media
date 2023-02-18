@@ -14,7 +14,7 @@
     font-family: {{ nav.font }}
 
   }
-  #company_name {
+  .company_name {
     color: {{ nav.font_color }};
     margin: auto;
 
@@ -55,7 +55,7 @@
     {% if nav.company_logo %}
     {% image nav.company_logo original as img %}
     <img id="comp_logo" id="hide" src="{{img.url}}" href="/" width="30" height="30" class="d-inline-block align-top" alt="">&nbsp;
-    <a id="company_name" class="navbar-brand" href="/">{{nav.company_name}}</a>
+    <a class="navbar-brand company_name" href="/">{{nav.company_name}}</a>
     {% else %}
     <img src="{% static 'img/logo/codefilter.png' %}" href="/" width="30" height="30" class="d-inline-block align-top" alt="" style="width:30px;">&nbsp;
     <a id class="navbar-brand" href="/" style="margin-right: 7rem; color:black;">NO COMPANY NAME</a>
