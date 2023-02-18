@@ -145,7 +145,8 @@ class PeoplePage(Page):
                              on_delete=models.SET_NULL)
     details = RichTextField(_('Details'),
                             null=True,
-                            blank=False,
+                            blank=True,
+                            default='None',
                             help_text='Please person\'s best description.')
     feature = models.BooleanField(_('Feature To Home'),
                                   default=False,
