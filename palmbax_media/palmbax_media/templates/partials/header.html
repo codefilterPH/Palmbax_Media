@@ -53,12 +53,15 @@
 {% endblock %}
   <nav class="navbar navbar-expand-lg fixed-top" style="{% if nav.bg_color_settings %} background-image: {{nav.bg_gradiant_image}}; {% else %}  background-color: {{nav.bg_color}}; {% endif %}">
     {% if nav.company_logo %}
-    {% image nav.company_logo original as img %}
-    <img id="comp_logo" id="hide" src="{{img.url}}" href="/" width="30" height="30" class="d-inline-block align-top" alt="">&nbsp;
-    <a class="navbar-brand company_name" href="/">{{nav.company_name}}</a>
+      {% image nav.company_logo original as img %}
+      <img id="comp_logo" id="hide" src="{{img.url}}" href="/" width="30" height="30" class="d-inline-block align-top" alt="">&nbsp;
     {% else %}
-    <img src="{% static 'img/logo/codefilter.png' %}" href="/" width="30" height="30" class="d-inline-block align-top" alt="" style="width:30px;">&nbsp;
-    <a id class="navbar-brand" href="/" style="margin-right: 7rem; color:black;">NO COMPANY NAME</a>
+      <img src="{% static 'img/logo/codefilter.png' %}" href="/" width="30" height="30" class="d-inline-block align-top" alt="" style="width:30px;">&nbsp;
+    {% endif %}
+    {% if nav.company_name %}
+      <a class="navbar-brand company_name" href="/">{{nav.company_name}}</a>
+    {% else %}
+      <a id class="navbar-brand" href="/" style="margin-right: 7rem; color:black;">NO COMPANY NAME</a>
     {% endif %}
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
