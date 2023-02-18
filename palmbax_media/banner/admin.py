@@ -22,6 +22,5 @@ class BannerAdmin(ModelAdmin):
     search_fields = ('banner_title', 'type', 'date')
 
 
-modeladmin_register(BannerAdmin)
 
 
