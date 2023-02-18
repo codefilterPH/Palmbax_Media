@@ -99,6 +99,7 @@
           <nav>
             <ul id="footer" class="navbar-nav ml-auto">
                 {% if nav.menu_items.all %}
+                <li class="nav-item"><a class="nav-link" href="/"> Home</a></li>
                 {% for item in nav.menu_items.all %}
                 <li class="nav-item"><a class="nav-link" href="{{item.link}}"> {{item.title}}</a></li>
                 {% endfor %}

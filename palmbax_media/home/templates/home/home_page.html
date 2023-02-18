@@ -4,6 +4,13 @@
 {% block body_class %}template-homepage{% endblock %}
 {% get_menu "main-menu" as nav %}
 {% block content %}
+    <!-- Messenger Chat Plugin Code -->
+    <div id="fb-root"></div>
+
+    <!-- Your Chat Plugin code -->
+    <div id="fb-customer-chat" class="fb-customerchat">
+    </div>
+
 <div class="container justify-content-center">
 {% if self.get_children.exists %}
     <!-- About Page -->
@@ -225,12 +232,7 @@
                         </div>
                     </div><br><hr>
                     <div class="row text-center justify-content-center align-items-center pt-3">
-                        <form class="contact_form justify-content-center align-items-center" action="{% pageurl page %}" method="POST" target="_blank">
-                             {% csrf_token %}
-                             <h1 id="custom__title" class="text-center pb-5 pt-3">Contact Us</h1>
-                            <ul id="form_fields" class="pb-5">{{ form.as_p }}</ul>
-                            <button class="btn btn-md btn-success my_btn" type="Submit" style="color: white;">Submit Form</button>
-                        </form>
+                          {% include 'contact/contact_form.html' with form=form  %}
                     </div>
                 </div>
             </div>
@@ -246,3 +248,29 @@
 {% endif %}
 </div>
 {% endblock content %}
+
+{% block extra_css %}
+    <script>
+      var chatbox = document.getElementById('fb-customer-chat');
+      chatbox.setAttribute("page_id", "102713304929937");
+      chatbox.setAttribute("attribution", "biz_inbox");
+    </script>
+
+    <!-- Your SDK code -->
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          xfbml            : true,
+          version          : 'v16.0'
+        });
+      };
+
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
+{% endblock %}
