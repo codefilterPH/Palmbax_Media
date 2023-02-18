@@ -61,8 +61,10 @@ class HomePage(Page):
         context['contact_page_status'] = ContactPage.objects.live().exists()
         context['contact_page'] = ContactPage.objects.live().first()
         address = Menu.objects.values_list('address', flat=True).first()
-        booking_page = BookingPage.objects.live().first()
-        context['book_page'] = booking_page.url
+        if BookingPage.objects.live().exists():
+            booking_page = BookingPage.objects.live().first()
+            context['book_page'] = booking_page.url
+
         # If address is not None, get the location information
         if address is not None:
             geolocator = Nominatim(user_agent="Corporate Website")
