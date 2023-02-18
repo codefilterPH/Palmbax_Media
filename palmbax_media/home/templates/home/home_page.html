@@ -30,7 +30,7 @@
                 </div>
             </section>
             {% endif %}
-            {% if item.cover_photo and people_live_status == True %}
+            {% if item.cover_photo or people_live_status == True %}
             <section class="about_images_section mt-5">
                 <div class="col-md">
                     {% if item.cover_photo %}
