@@ -42,8 +42,9 @@ class ServicePage(Page):
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         context['live_page_status'] = ServiceDetailPage.objects.live().exists()
-        booking_page = BookingPage.objects.live().first()
-        context['book_page'] = booking_page.url
+        if BookingPage.objects.live().exists():
+            booking_page = BookingPage.objects.live().first()
+            context['book_page'] = booking_page.url
 
         all_pages = ServiceDetailPage.objects.live()
         paginator = Paginator(all_pages, 6)
