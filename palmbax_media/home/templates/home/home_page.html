@@ -4,13 +4,6 @@
 {% block body_class %}template-homepage{% endblock %}
 {% get_menu "main-menu" as nav %}
 {% block content %}
-    <!-- Messenger Chat Plugin Code -->
-    <div id="fb-root"></div>
-
-    <!-- Your Chat Plugin code -->
-    <div id="fb-customer-chat" class="fb-customerchat">
-    </div>
-
 <div class="container justify-content-center">
 {% if self.get_children.exists %}
     <!-- About Page -->
@@ -236,6 +229,10 @@
         </div>
     </section>
     {% endif %}
+        <!-- Messenger Chat Plugin Code -->
+    <div id="fb-root"></div>
+    <!-- Your Chat Plugin code -->
+    <div id="fb-customer-chat" class="fb-customerchat"></div>
 {% else %}
     {% include 'partials/no_page.html' %}
 {% endif %}
