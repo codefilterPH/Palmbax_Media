@@ -106,8 +106,8 @@ function goTo() {
   window.location.href = '/search/?query='+encodeURIComponent(result);
 }
 </script>
-{% endblock %}
-{% block extra_js %}
+
+
 <script>
   var chatbox = document.getElementById('fb-customer-chat');
   chatbox.setAttribute("page_id", "102713304929937");
@@ -131,4 +131,5 @@ function goTo() {
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));
 </script>
+
 {% endblock %}
