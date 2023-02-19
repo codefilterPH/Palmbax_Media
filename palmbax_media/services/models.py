@@ -199,7 +199,9 @@ class ServiceDetailPage(Page):
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         context['live_service_detail_status'] = ServiceDetailPage.objects.live().exists()
-        booking_page = BookingPage.objects.live().first()
-        context['book_page'] = booking_page.url
+
+        if BookingPage.objects.live().exists():
+            booking_page = BookingPage.objects.live().first()
+            context['book_page'] = booking_page.url
 
         return context
